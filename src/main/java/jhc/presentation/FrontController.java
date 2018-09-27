@@ -6,11 +6,14 @@
 package jhc.presentation;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import jhc.data.LineItemDTO;
+import jhc.data.ProductDTO;
 import jhc.data.UserDTO;
 import jhc.logic.ProductDAO;
 import jhc.logic.UserDAO;
@@ -24,6 +27,7 @@ public class FrontController extends HttpServlet
 
     public static final String SHOW_SINGLE_RECIPE = "singleRecipe";
     public static final String CREATE_RECIPE = "createRecipe";
+    public static final String ADD_TO_BASKET = "addToBasket";
     public static final String EDIT_RECIPE = "editRecipe";
     public static final String CREATE_USER = "createUser";
     public static final String CHECKOUT = "checkout";
@@ -49,6 +53,32 @@ public class FrontController extends HttpServlet
         {
             switch (origin) 
             {
+                case ADD_TO_BASKET:
+                {
+                    
+                    // find selected bottom and topping as well as qty.
+                    int bottomId = Integer.parseInt(request.getParameter("bottoms"));                    
+                    int toppingId = Integer.parseInt(request.getParameter("toppings"));
+                    int qty = Integer.parseInt(request.getParameter("qty"));
+                    
+                    ProductDTO bottom = ProductDAO.getSingleProduct(bottomId);
+                    ProductDTO top = ProductDAO.getSingleProduct(toppingId);
+                    
+                    HttpSession session = request.getSession();
+                    
+                    ArrayList<LineItemDTO> lineItems = (ArrayList<LineItemDTO>)session.getAttribute("lineItems");
+                    if (lineItems == null)
+                        lineItems = new ArrayList<LineItemDTO>();
+                    
+                    lineItems.add(new LineItemDTO(bottomId, qty, bottom.getPrice()));
+                    lineItems.add(new LineItemDTO(toppingId, qty, top.getPrice()));
+                    
+                    session.setAttribute("lineItems", lineItems);
+                    
+                    request.getRequestDispatcher("Cart.jsp").forward(request, response);
+                    
+                }
+                break;
                 case CHECKOUT:
                 {
                     request.getRequestDispatcher("Cart.jsp").forward(request, response);

@@ -26,6 +26,19 @@ public class LineItemDTO
         this.price = price;
     }
     
+    /**
+     * Constructor for line items in cart, that do not have an order id yet.
+     * @param productId
+     * @param qty
+     * @param price 
+     */
+    public LineItemDTO(int productId, int qty, float price)
+    {
+        this.productId = productId;
+        this.qty = qty;
+        this.price = price;
+    }
+    
     public int getOrderId(){return orderId;}
     public int getProductId(){return productId;}
     public String getProductName(){return productName;}

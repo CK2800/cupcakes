@@ -31,8 +31,8 @@
 
             <div class="topnav">
                 <a class="active" href="./">Home</a>
-                <a href="/FrontController">Create user</a>
-                <a href="/FrontController">Login</a>
+                <a href="/FrontController?origin=">Create user</a>
+                <a href="/FrontController?origin=">Login</a>
                 
             </div>
             

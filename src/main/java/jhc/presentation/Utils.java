@@ -18,11 +18,12 @@ public class Utils
      * Converts an ArrayList of ProductDTO objects to a HTML select element.
      * @param products Collection of ProductDTO objects.
      * @param htmlElementName The name of the select html element.
+     * @param htmlElementId The id of the select element.
      * @return String
      */
-    public static String ProductDropDown(ArrayList<ProductDTO> products, String htmlElementName)
-    {
-        String dropdown = "<select class=\"custom-select d-block w-100\" required=\"\" name="+htmlElementName+">";
+    public static String ProductDropDown(ArrayList<ProductDTO> products, String htmlElementName, String htmlElementId)
+    {        
+        String dropdown = "<select class=\"custom-select d-block w-100\" required=\"\" id="+htmlElementId+" name="+htmlElementName+">";
         for(ProductDTO product : products)
             dropdown += "<option value=" + product.getId() + ">"+ product.getName() +"</option>";
         dropdown += "</select>";

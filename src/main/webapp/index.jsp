@@ -21,8 +21,8 @@
     //String aCreateRecipe = "<a href='" + request.getContextPath() + "/FrontController?origin=" + FrontController.CREATE_RECIPE + "' class='" + bt + "secondary'>Create recipe</a>";
     ArrayList<ProductDTO> bottoms  = ProductDAO.getProductsOfType(1);
     ArrayList<ProductDTO> toppings = ProductDAO.getProductsOfType(2);
-    String bottomsDropDown = Utils.ProductDropDown(bottoms, "bottoms");
-    String toppingsDropDown = Utils.ProductDropDown(toppings, "toppings");
+    String bottomsDropDown = Utils.ProductDropDown(bottoms, "bottoms", "bottoms");
+    String toppingsDropDown = Utils.ProductDropDown(toppings, "toppings", "toppings");
     
 
 %>
@@ -40,33 +40,28 @@
         <h1>Velkommen <%= (userDTO != null ? userDTO.getUsername(): " til Cupcakes") %>!</h1>
         <%-- are there any cupcakes, print them. --%>
         <div class="row">
+            <form style="display:inherit; width:100%" action="/FrontController" method="<%= FrontController.POST %>">
+                <input type="hidden" name="origin" value="<%= FrontController.ADD_TO_BASKET %>" />
                 <div class="col-md-3" style="margin-top: 35px;">
                 <label for="zip">Qty</label>
-                <input type="text" class="form-control" id="zip" placeholder="" required="">
+                <input type="text" class="form-control" name="qty" id="qty" placeholder="" required="">
               </div>
               <div class="col-md-7">
-                <label for="country">Top</label>
-                <%--<select class="custom-select d-block w-100" id="country" required="">
-                  <option value="">Top</option>
-                  <option>United States</option>
-                </select> --%>
+                <label for="country">Top</label>                
                 <%= toppingsDropDown %>
-                <label for="state">Bund</label>
-                <%-- <select class="custom-select d-block w-100" id="state" required="">
-                  <option value="">Bund</option>
-                  <option>California</option>
-                </select> --%>
+                <label for="state">Bund</label>                
                 <%= bottomsDropDown %>
               </div>
                 <div class="col-md-2" style="margin-top: 65px;">
-                <button type="button" class="btn btn-success btn-lg">Betal</button>
+                <button type="button" class="btn btn-success btn-lg">Bestil</button>
               </div>
+              </form>
             </div>
         <%-- are there any recipes, print them. --%>
         <%-- Login button or log out button. --%>
         <%= userDTO != null ? aLogout : aLogin %>
-        <%-- Create recipe if user is logged in --%>
+        
         
         </div>
-    </body>
+    </body>    
 </html>
