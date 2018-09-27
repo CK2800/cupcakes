@@ -9,7 +9,7 @@ package jhc.data;
  *
  * @author Claus
  */
-public class LineItemsDTO
+public class LineItemDTO
 {
     private int orderId;
     private int productId;
@@ -17,7 +17,7 @@ public class LineItemsDTO
     private int qty;
     private float price;
     
-    public LineItemsDTO(int orderId, int productId, String productName, int qty, float price)
+    public LineItemDTO(int orderId, int productId, String productName, int qty, float price)
     {
         this.orderId = orderId;
         this.productId = productId;

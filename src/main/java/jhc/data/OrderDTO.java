@@ -26,8 +26,19 @@ public class OrderDTO
     public int getId(){return id;}
     public int getUserId(){return userId;}
     
-    public void setLineItems(ArrayList<LineItemsDTO> lineItems)
+    /**
+     * Adds a list of LineItemDTO ojects to this order.
+     * PRE: LineItemDTO's order id must match this orders id.
+     * @param lineItems
+     * @return true if line items were added, false otherwise.
+     */
+    public boolean setLineItems(ArrayList<LineItemDTO> lineItems)
     {
-        if (lineItems != null && lineItems)
+        if (lineItems != null && lineItems.get(0).getOrderId() == id)
+        {
+            this.lineItems = lineItems;
+            return true;
+        }
+        return false;
     }
 }
