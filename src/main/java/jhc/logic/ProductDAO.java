@@ -183,8 +183,19 @@ public class ProductDAO {
             connection = DBConnection.getConnection();
             // try to get products.
             PreparedStatement pstm = connection.prepareStatement(productsOfTypeSql);
-            pstm.setInt(1, productId);
+            pstm.setInt(1, producttypeId);
+            
+            try(ResultSet rs = pstm.executeQuery();)
+            {
+                while(rs.next())
+                    products.add(mapProduct(rs));
+            }
         }
+        catch(Exception e)
+        {
+            System.out.println("ProductDTO.getProductsOfType(int): " + e.getMessage() );
+        } 
+        return products;
     }
     
     
@@ -212,7 +223,7 @@ public class ProductDAO {
         }
         catch(Exception e)
         {
-            System.out.println("RecipeDTO.getSingleRecipe(): " + e.getMessage() );
+            System.out.println("ProductDTO.getSingleProduct(int): " + e.getMessage() );
         }   
         
         return productDTO;

@@ -4,19 +4,27 @@
     Author     : Claus
 --%>
 
+<%@page import="jhc.presentation.Utils"%>
 <%@page import="jhc.presentation.FrontController"%>
-<%@page import="jhc.logic.RecipeDAO"%>
+<%@page import="jhc.logic.ProductDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="jhc.data.RecipeDTO"%>
+<%@page import="jhc.data.ProductDTO"%>
 <%@page import="jhc.data.UserDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     UserDTO userDTO = (UserDTO)request.getSession().getAttribute("userDTO");            
     String bt = "btn btn-";
-    String recipesTable = RecipeDAO.getRecipesTable(request.getContextPath());
+    //String recipesTable = RecipeDAO.getRecipesTable(request.getContextPath());
     String aLogout = "<a href='" + request.getContextPath() + "/FrontController?origin=" + FrontController.LOGOUT + "' class='" + bt + "danger'>Log out</a>";
     String aLogin  = "<a href='" + request.getContextPath() + "/FrontController?origin=" + FrontController.LOGIN + "' class='" + bt + "warning'>Log in</a>";
-    String aCreateRecipe = "<a href='" + request.getContextPath() + "/FrontController?origin=" + FrontController.CREATE_RECIPE + "' class='" + bt + "secondary'>Create recipe</a>";
+    //String aCreateRecipe = "<a href='" + request.getContextPath() + "/FrontController?origin=" + FrontController.CREATE_RECIPE + "' class='" + bt + "secondary'>Create recipe</a>";
+    ArrayList<ProductDTO> bottoms  = ProductDAO.getProductsOfType(1);
+    ArrayList<ProductDTO> toppings = ProductDAO.getProductsOfType(2);
+    String bottomsDropDown = Utils.ProductDropDown(bottoms, "bottoms");
+    String toppingsDropDown = Utils.ProductDropDown(toppings, "toppings");
+    
+
 %>
 <!DOCTYPE html>
 <html>
@@ -38,15 +46,17 @@
               </div>
               <div class="col-md-7">
                 <label for="country">Top</label>
-                <select class="custom-select d-block w-100" id="country" required="">
+                <%--<select class="custom-select d-block w-100" id="country" required="">
                   <option value="">Top</option>
                   <option>United States</option>
-                </select>
+                </select> --%>
+                <%= toppingsDropDown %>
                 <label for="state">Bund</label>
-                <select class="custom-select d-block w-100" id="state" required="">
+                <%-- <select class="custom-select d-block w-100" id="state" required="">
                   <option value="">Bund</option>
                   <option>California</option>
-                </select>
+                </select> --%>
+                <%= bottomsDropDown %>
               </div>
                 <div class="col-md-2" style="margin-top: 65px;">
                 <button type="button" class="btn btn-success btn-lg">Betal</button>
@@ -56,7 +66,7 @@
         <%-- Login button or log out button. --%>
         <%= userDTO != null ? aLogout : aLogin %>
         <%-- Create recipe if user is logged in --%>
-        <%= userDTO != null ? aCreateRecipe : "" %>
+        
         </div>
     </body>
 </html>

@@ -22,7 +22,7 @@ public class Utils
      */
     public static String ProductDropDown(ArrayList<ProductDTO> products, String htmlElementName)
     {
-        String dropdown = "<select name="+htmlElementName+">";
+        String dropdown = "<select class=\"custom-select d-block w-100\" required=\"\" name="+htmlElementName+">";
         for(ProductDTO product : products)
             dropdown += "<option value=" + product.getId() + ">"+ product.getName() +"</option>";
         dropdown += "</select>";

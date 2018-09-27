@@ -13,6 +13,28 @@ import java.util.ArrayList;
  */
 public class OrderDTO
 {
+<<<<<<< HEAD
+=======
+
+//    private int id;
+//    private int userId;
+//    private ArrayList<LineItemDTO> lineItems;
+//    
+//    public OrderDTO(int id, int userId)
+//    {
+//        this.id = id;
+//        this.userId = userId;
+//    }
+//    
+//    public int getId(){return id;}
+//    public int getUserId(){return userId;}
+//    
+//    public void setLineItems(ArrayList<LineItemsDTO> lineItems)
+//    {
+//        if (lineItems != null && lineItems)
+//    }
+
+>>>>>>> d44f2794908493ca550cf9c3002ce1282a11903a
     private int id;
     private int userId;
     private ArrayList<LineItemDTO> lineItems;
@@ -41,4 +63,8 @@ public class OrderDTO
         }
         return false;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> d44f2794908493ca550cf9c3002ce1282a11903a
 }
