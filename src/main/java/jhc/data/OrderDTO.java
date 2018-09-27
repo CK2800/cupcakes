@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class OrderDTO
 {
-<<<<<<< HEAD
+
 //    private int id;
 //    private int userId;
 //    private ArrayList<LineItemDTO> lineItems;
@@ -31,7 +31,7 @@ public class OrderDTO
 //    {
 //        if (lineItems != null && lineItems)
 //    }
-=======
+
     private int id;
     private int userId;
     private ArrayList<LineItemDTO> lineItems;
@@ -60,5 +60,5 @@ public class OrderDTO
         }
         return false;
     }
->>>>>>> 823c365077f095e7981e495a9a3542cdb1dea7ac
+
 }
