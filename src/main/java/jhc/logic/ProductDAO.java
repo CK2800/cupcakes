@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import jhc.data.DBConnection;
 import jhc.data.ImageDTO;
+import jhc.data.ProductDTO;
 import jhc.data.RecipeDTO;
 import jhc.presentation.FrontController;
 
@@ -18,14 +19,14 @@ import jhc.presentation.FrontController;
  *
  * @author Claus
  */
-public class RecipeDAO {
+public class ProductDAO {
     
     private static Connection connection;
     
-    // SQL til forespørgsel på enkelt recipe baseret på recipe.id
-    final static String singleRecipeSql = "SELECT re.id, re.userId, re.headline, re.ingredients, re.instructions, u.name, SUM(ra.rating)/COUNT(ra.rating) as rating " +
-                         "FROM recipe re INNER JOIN ratings ra ON ra.recipeId = re.id "+
-                         "INNER JOIN `user` u ON re.userId = u.id WHERE re.id = ?;";            
+    // SQL til forespørgsel på enkelt Product baseret på id
+    final static String singleProductSql = "SELECT p.id, p.producttypeId, p.name, p.price " +
+                         "FROM products p WHERE p.id = ?";
+                         
     
     // SQL til forespørgsl på alle recipes.
     final static String allRecipesSql = "SELECT re.id, re.userId, re.headline, re.ingredients, re.instructions, u.name, SUM(ra.rating)/COUNT(ra.rating) as rating " +
@@ -173,43 +174,53 @@ public class RecipeDAO {
     
     
     
-    public static RecipeDTO getSingleRecipe(int produktId)
+    public static ProductDTO getSingleProduct(int productId)
     {
-        RecipeDTO recipeDTO = null;        
+        ProductDTO productDTO = null;        
                         
         try
         {
             // make connection.
             connection = DBConnection.getConnection();
             // Forsøg at hente recipe.
-            PreparedStatement pstm = connection.prepareStatement(singleRecipeSql);
-            pstm.setInt(1, produktId);
+            PreparedStatement pstm = connection.prepareStatement(singleProductSql);
+            pstm.setInt(1, productId);
 
             // try with ressources.
             try (ResultSet rs = pstm.executeQuery();) 
             {
-                // Tomt recordset giver 1 tuple med null i kolonnerne,
-                // derfor check at rs.getInt("id") > 0.
-                if (rs.next() && rs.getInt("id") > 0) // Kun 1 record pga SUM/COUNT i sql.
+                
+                if (rs.next()) // Kun 1 record pga SUM/COUNT i sql.
                 {
-                    System.out.println("rs:" + rs.toString());                    
-                    recipeDTO = new RecipeDTO(rs.getInt("id"),
-                            rs.getInt("userId"),
-                            rs.getString("instructions"),
-                            rs.getString("ingredients"),
-                            rs.getString("headline"),
-                            rs.getFloat("rating")
-                    );
-                }                
+                    productDTO = mapProduct(rs);                    
+                }                                                
             }
         }
         catch(Exception e)
         {
             System.out.println("RecipeDTO.getSingleRecipe(): " + e.getMessage() );
-        }            
-               
+        }   
         
-        return recipeDTO;
+        return productDTO;
+    }
+
+    /**
+     * Maps a product from resultset to ProductDTO.     
+     * @param rs
+     * @return ProductDTO object or null if ResultSet row is empty.
+     * @throws Exception 
+     */
+    private static ProductDTO mapProduct(ResultSet rs) throws Exception
+    {
+        ProductDTO productDTO = new ProductDTO(
+                            rs.getInt("id"),
+                            rs.getInt("producttypeId"),
+                            rs.getString("name"),
+                            rs.getFloat("price")
+                            );
+        if (productDTO.getId() > 0)
+            return productDTO;
+        return null;
     }
     
     

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import jhc.data.UserDTO;
-import jhc.logic.RecipeDAO;
+import jhc.logic.ProductDAO;
 import jhc.logic.UserDAO;
 
 /**
@@ -67,7 +67,7 @@ public class FrontController extends HttpServlet
                             request.getRequestDispatcher("createRecipe.jsp").forward(request, response);
                         else // method is POST, user creates recipe now.
                         {
-                            if (RecipeDAO.createRecipe(Integer.parseInt(request.getParameter("userId")), request.getParameter("headline"), request.getParameter("instructions"), request.getParameter("ingredients")))
+                            if (ProductDAO.createRecipe(Integer.parseInt(request.getParameter("userId")), request.getParameter("headline"), request.getParameter("instructions"), request.getParameter("ingredients")))
                             {
                                 // Recipe was created, forward request to index.jsp to reflect changes.
                                 response.sendRedirect("index.jsp");
