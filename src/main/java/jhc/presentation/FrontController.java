@@ -1,0 +1,228 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package jhc.presentation;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import jhc.data.UserDTO;
+import jhc.logic.RecipeDAO;
+import jhc.logic.UserDAO;
+
+/**
+ *
+ * @author Claus
+ */
+public class FrontController extends HttpServlet 
+{
+
+    public static final String SHOW_SINGLE_RECIPE = "singleRecipe";
+    public static final String CREATE_RECIPE = "createRecipe";
+    public static final String EDIT_RECIPE = "editRecipe";
+    public static final String LOGIN = "login";
+    public static final String LOGOUT = "logout";
+
+    public static final String POST = "post";
+    public static final String GET = "get";
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String origin = request.getParameter("origin"); // Must match constants.
+        String method = request.getMethod().toLowerCase();
+        if (origin != null) 
+        {
+            switch (origin) 
+            {
+                case SHOW_SINGLE_RECIPE: {
+                    request.getRequestDispatcher("singleRecipe.jsp").forward(request, response);
+                }
+                break;
+
+                case CREATE_RECIPE: {
+                    // Check for logged in user.
+                    if (userIsAuthenticated(request))     
+                    {
+                        if (method.equals(GET))
+                            request.getRequestDispatcher("createRecipe.jsp").forward(request, response);
+                        else // method is POST, user creates recipe now.
+                        {
+                            if (RecipeDAO.createRecipe(Integer.parseInt(request.getParameter("userId")), request.getParameter("headline"), request.getParameter("instructions"), request.getParameter("ingredients")))
+                            {
+                                // Recipe was created, forward request to index.jsp to reflect changes.
+                                response.sendRedirect("index.jsp");
+                                //request.getRequestDispatcher("index.jsp").sendRedirect(request, response);                                
+                            }
+                            else // Show create recipe form again.
+                            {          
+                                request.setAttribute("errorMessage", "Recipe creation failed, please try again.");
+                                request.getRequestDispatcher("createRecipe.jsp").forward(request, response);
+                            }
+                        }
+                    }
+                    else // No user logged in, forward to login page.
+                    {                        
+                        invalidateSession(request);
+                        request.getRequestDispatcher("login.jsp").forward(request, response);
+                    }
+                        
+                }
+                break;
+
+                case EDIT_RECIPE: {
+                    // Check for logged in user.
+                    if(userIsAuthenticated(request))
+                        request.getRequestDispatcher("editRecipe.jsp").forward(request, response);
+                    else // No user logged in, forward to login page.
+                    {
+                        invalidateSession(request);                    
+                        request.getRequestDispatcher("login.jsp").forward(request, response);
+                    }
+                }
+                break;
+                case LOGOUT:
+                {
+                    // Invalidate the session.
+                    invalidateSession(request);
+                    // forward to index.jsp.
+                    request.getRequestDispatcher("index.jsp").forward(request, response);                    
+                }
+                break;
+                case LOGIN: {
+                    if (method.equals(GET)) 
+                    {
+                        request.getRequestDispatcher("login.jsp").forward(request, response);
+                    } 
+                    else // method is POST, user tries to log in now.
+                    {
+                        invalidateSession(request);
+                        if (loginUser(request, request.getParameter("name"), request.getParameter("password")))
+                        {
+                            // after login, show index.jsp.
+                            response.sendRedirect("index.jsp");
+                            //request.getRequestDispatcher("index.jsp").forward(request, response);
+                        }
+                        else
+                        {
+                            // no login, show login page.
+                            request.setAttribute("errorMessage", "Login failed, resubmit credentials and try again.");
+                            request.getRequestDispatcher("login.jsp").forward(request, response);
+                        }
+                    }
+                }
+                break;
+
+                default: {
+                    // no forwarding, will be done when control leaves switch. 
+                }
+                break;
+            }
+        }
+        else // If no origin, redirect to index.html
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+    /**
+     * Helper method to determine if session has a logged in user.
+     * @param request
+     * @return true if session has a UserDTO object, false otherwise.
+     */
+    public static boolean userIsAuthenticated(HttpServletRequest request)
+    {
+        return request.getSession().getAttribute("userDTO") != null;
+    }
+    /**
+     * Static helper method to log in user and store UserDTO in session.
+     * @param request
+     * @param name
+     * @param password
+     * @return true if user is logged in, false otherwise.
+     */
+    public static boolean loginUser(HttpServletRequest request, String name, String password) 
+    {        
+        // sanitize.
+        name = name.trim();
+        password = password.trim(); // sha og hash kommer senere...
+            
+        try 
+        {
+            UserDTO userDTO = UserDAO.getUser(name);
+            if (userDTO != null && userDTO.getPassword().equals(password)) 
+            {
+                HttpSession session = request.getSession();
+                // Store userDTO in session - possibly bad practice due to password.
+                session.setAttribute("userDTO", userDTO);
+                return true;
+            }
+
+        } catch (Exception e) {
+            System.out.println("FrontController.LoginUser(String, String): " + e.getMessage());
+        }
+        return false;
+    }
+    
+    /**
+     * Invalidates a session.
+     * @param request 
+     */
+    public static void invalidateSession(HttpServletRequest request)
+    {
+         // Invalidate old session if one exists.
+        HttpSession oldSession = request.getSession(false);
+        if (oldSession != null)
+            oldSession.invalidate();
+    }    
+}

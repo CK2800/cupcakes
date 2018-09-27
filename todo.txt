@@ -1,0 +1,15 @@
+1. Opskrifter skal på forsiden. JESPER
+2. Login knap på forsiden. JESPER
+3. Opret ny bruger-knap på forsiden. JESPER
+
+4. Opskrift siden. JESPER
+5. Redigerknap HVIS man er logget ind. JESPER
+
+
+6. Login formular som gemmer i Session hvem som er logget ind. CLAUS OK
+7. Opret opskrift formular. CLAUS 
+8. Origin switch i controller. CLAUS OK
+
+9. RecipeDAO - SQL til oprettelse af nyt produkt. HENRIK
+10. RecipeDAO - SQL til redigering af et produkt. HENRIK AFVENT
+
