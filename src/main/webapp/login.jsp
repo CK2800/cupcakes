@@ -9,8 +9,6 @@
 <%
     Object oErrorMessage = request.getAttribute("errorMessage");
     String errorMessage = (oErrorMessage == null ? "" : "<div class='alert alert-danger'>"+ oErrorMessage.toString() +"</div>");
-    
-    
 %>
 <!DOCTYPE html>
 <html>
