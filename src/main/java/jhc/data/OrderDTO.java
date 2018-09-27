@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class OrderDTO
 {
+<<<<<<< HEAD
 //    private int id;
 //    private int userId;
 //    private ArrayList<LineItemDTO> lineItems;
@@ -30,4 +31,34 @@ public class OrderDTO
 //    {
 //        if (lineItems != null && lineItems)
 //    }
+=======
+    private int id;
+    private int userId;
+    private ArrayList<LineItemDTO> lineItems;
+    
+    public OrderDTO(int id, int userId)
+    {
+        this.id = id;
+        this.userId = userId;
+    }
+    
+    public int getId(){return id;}
+    public int getUserId(){return userId;}
+    
+    /**
+     * Adds a list of LineItemDTO ojects to this order.
+     * PRE: LineItemDTO's order id must match this orders id.
+     * @param lineItems
+     * @return true if line items were added, false otherwise.
+     */
+    public boolean setLineItems(ArrayList<LineItemDTO> lineItems)
+    {
+        if (lineItems != null && lineItems.get(0).getOrderId() == id)
+        {
+            this.lineItems = lineItems;
+            return true;
+        }
+        return false;
+    }
+>>>>>>> 823c365077f095e7981e495a9a3542cdb1dea7ac
 }
