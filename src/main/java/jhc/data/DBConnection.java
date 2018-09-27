@@ -15,9 +15,9 @@ import java.sql.SQLException;
 public class DBConnection {
     
 	public final static String DB_DRIVER_CLASS = "com.mysql.jdbc.Driver";
-	public final static String DB_URL = "jdbc:mysql://142.93.174.238:3306/Recipes";
-	public final static String DB_USERNAME = "recipeUser";
-	public final static String DB_PASSWORD = "Recipe@2018";
+	public final static String DB_URL = "jdbc:mysql://142.93.174.238:3306/cupcakes";
+	public final static String DB_USERNAME = "cupcakeUser";
+	public final static String DB_PASSWORD = "Cupcake@2018";
 
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
 
