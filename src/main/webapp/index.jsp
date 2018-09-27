@@ -30,9 +30,47 @@
     <body>     
         <div class="container">
         <%-- is there a user, print out username. --%>
-        <h1>Velkommen <%= (userDTO != null ? userDTO.getName() : " til Recipe") %>!</h1>
-        <%-- are there any recipes, print them. --%>
-        <%= recipesTable != "" ? recipesTable : "" %>
+        <h1>Velkommen </h1>
+        <%-- are there any cupcakes, print them. --%>
+        <div class="row">
+            <div class="col-md-12">
+            <form>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="usr">Qty</label>
+                        <input type="text" class="form-control" placeholder="Qty">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Tutorials
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                          <li role="presentation"><a role="menuitem" href="#">HTML</a></li>
+                          <li role="presentation"><a role="menuitem" href="#">CSS</a></li>
+                          <li role="presentation"><a role="menuitem" href="#">JavaScript</a></li>
+                          <li role="presentation" class="divider"></li>
+                          <li role="presentation"><a role="menuitem" href="#">About Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Tutorials
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                          <li role="presentation"><a role="menuitem" href="#">HTML</a></li>
+                          <li role="presentation"><a role="menuitem" href="#">CSS</a></li>
+                          <li role="presentation"><a role="menuitem" href="#">JavaScript</a></li>
+                          <li role="presentation" class="divider"></li>
+                          <li role="presentation"><a role="menuitem" href="#">About Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-success">Success</button>
+                </div>
+            </form>
+            </div>
+        </div>
         <%-- Login button or log out button. --%>
         <%= userDTO != null ? aLogout : aLogin %>
         <%-- Create recipe if user is logged in --%>
