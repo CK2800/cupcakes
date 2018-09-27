@@ -106,7 +106,7 @@
                         <span class="text-success">-$5</span>
                       </li>
                       <li class="list-group-item d-flex justify-content-between">
-                        <span>Total (USD)</span>
+                        <span>Total (DKK)</span>
                         <strong>$20</strong>
                       </li>
                     </ul>
