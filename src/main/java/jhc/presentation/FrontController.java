@@ -25,6 +25,7 @@ public class FrontController extends HttpServlet
     public static final String SHOW_SINGLE_RECIPE = "singleRecipe";
     public static final String CREATE_RECIPE = "createRecipe";
     public static final String EDIT_RECIPE = "editRecipe";
+    public static final String CREATE_USER = "createUser";
     public static final String LOGIN = "login";
     public static final String LOGOUT = "logout";
 
@@ -48,6 +49,11 @@ public class FrontController extends HttpServlet
         {
             switch (origin) 
             {
+                case CREATE_USER:
+                {
+                    request.getRequestDispatcher("createUser.jsp").forward(request, response);
+                }
+                break;
                 case SHOW_SINGLE_RECIPE: {
                     request.getRequestDispatcher("singleRecipe.jsp").forward(request, response);
                 }
