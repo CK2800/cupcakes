@@ -28,7 +28,7 @@
     </head>
     <body>
         <div id="container">
-
+            <h1> <a href="./" >Cupcakes</a></h1>
             <div class="topnav">
                 <a class="active" href="./">Home</a>
                 <a href="/FrontController?origin=">Create user</a>
@@ -36,6 +36,7 @@
                 
             </div>
             
+         
             <h1>Create user page</h1>
 
             <%= errorMessage%>
