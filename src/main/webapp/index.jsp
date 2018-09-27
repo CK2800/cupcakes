@@ -30,7 +30,7 @@
     <body>     
         <div class="container">
         <%-- is there a user, print out username. --%>
-        <h1>Velkommen <%= (userDTO != null ? userDTO.getName() : " til Recipe") %>!</h1>
+        <h1>Velkommen <%= (userDTO != null ? userDTO.getUsername(): " til Recipe") %>!</h1>
         <%-- are there any recipes, print them. --%>
         <%= recipesTable != "" ? recipesTable : "" %>
         <%-- Login button or log out button. --%>

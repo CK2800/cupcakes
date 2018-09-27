@@ -5,6 +5,8 @@
  */
 package jhc.data;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Claus
@@ -13,6 +15,7 @@ public class OrderDTO
 {
     private int id;
     private int userId;
+    private ArrayList<LineItemDTO> lineItems;
     
     public OrderDTO(int id, int userId)
     {
@@ -22,4 +25,9 @@ public class OrderDTO
     
     public int getId(){return id;}
     public int getUserId(){return userId;}
+    
+    public void setLineItems(ArrayList<LineItemsDTO> lineItems)
+    {
+        if (lineItems != null && lineItems)
+    }
 }
