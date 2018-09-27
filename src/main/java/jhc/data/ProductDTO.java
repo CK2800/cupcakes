@@ -27,6 +27,5 @@ public class ProductDTO
     public int getId(){return id;}
     public int getProducttypeId(){return producttypeId;}
     public String getName(){return name;}
-    public float getPrice(){return price;}
-    
+    public float getPrice(){return price;}    
 }
