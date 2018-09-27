@@ -22,55 +22,46 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
         <title>Welcome - Recipes'R'Us</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     </head>
     <body>     
         <div class="container">
-        <%-- is there a user, print out username. --%>
-        <h1>Velkommen </h1>
+        <%-- is there a user, print out username. --%>        
+        <h1>Velkommen <%= (userDTO != null ? userDTO.getUsername(): " til Cupcakes") %>!</h1>
         <%-- are there any cupcakes, print them. --%>
         <div class="row">
-            <div class="col-md-12">
-            <form>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="usr">Qty</label>
-                        <input type="text" class="form-control" placeholder="Qty">
-                    </div>
+                <div class="col-md-3" style="margin-top: 35px;">
+                <label for="zip">Zip</label>
+                <input type="text" class="form-control" id="zip" placeholder="" required="">
+                <div class="invalid-feedback">
+                  Zip code required.
                 </div>
-                <div class="col-md-6">
-                    <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Tutorials
-                        <span class="caret"></span></button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                          <li role="presentation"><a role="menuitem" href="#">HTML</a></li>
-                          <li role="presentation"><a role="menuitem" href="#">CSS</a></li>
-                          <li role="presentation"><a role="menuitem" href="#">JavaScript</a></li>
-                          <li role="presentation" class="divider"></li>
-                          <li role="presentation"><a role="menuitem" href="#">About Us</a></li>
-                        </ul>
-                    </div>
-                    <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Tutorials
-                        <span class="caret"></span></button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                          <li role="presentation"><a role="menuitem" href="#">HTML</a></li>
-                          <li role="presentation"><a role="menuitem" href="#">CSS</a></li>
-                          <li role="presentation"><a role="menuitem" href="#">JavaScript</a></li>
-                          <li role="presentation" class="divider"></li>
-                          <li role="presentation"><a role="menuitem" href="#">About Us</a></li>
-                        </ul>
-                    </div>
+              </div>
+              <div class="col-md-7">
+                <label for="country">Country</label>
+                <select class="custom-select d-block w-100" id="country" required="">
+                  <option value="">Choose...</option>
+                  <option>United States</option>
+                </select>
+                <div class="invalid-feedback">
+                  Please select a valid country.
                 </div>
-                <div class="col-md-3">
-                    <button type="button" class="btn btn-success">Success</button>
+                <label for="state">State</label>
+                <select class="custom-select d-block w-100" id="state" required="">
+                  <option value="">Choose...</option>
+                  <option>California</option>
+                </select>
+                <div class="invalid-feedback">
+                  Please provide a valid state.
                 </div>
-            </form>
+              </div>
+                <div class="col-md-2" style="margin-top: 65px;">
+                <button type="button" class="btn btn-success btn-lg">Success</button>
+              </div>
             </div>
-        </div>
+        <%-- are there any recipes, print them. --%>
         <%-- Login button or log out button. --%>
         <%= userDTO != null ? aLogout : aLogin %>
         <%-- Create recipe if user is logged in --%>
