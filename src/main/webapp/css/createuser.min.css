@@ -68,3 +68,15 @@ body {
     color: white;
 }
 
+h1 {
+    font-size: 65px;
+}
+h1 a {
+    text-decoration: #FFF;
+    color: #FFF;
+    
+}
+h1 a:hover {
+    text-decoration: #f2f2f2;
+}
+

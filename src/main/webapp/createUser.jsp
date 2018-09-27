@@ -19,7 +19,7 @@
     <head>
 
         <meta charset="utf-8">
-        <link href="createuser.min.css" rel="stylesheet" type="text/css">
+        <link href="css/createuser.min.css" rel="stylesheet" type="text/css">
 
         <!--
              <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -37,7 +37,7 @@
             </div>
             
          
-            <h1>Create user page</h1>
+            <h2>Create user page</h2>
 
             <%= errorMessage%>
             <form action="FrontController" method="POST">
