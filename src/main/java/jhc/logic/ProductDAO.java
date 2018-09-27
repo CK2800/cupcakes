@@ -26,6 +26,9 @@ public class ProductDAO {
     // SQL til forespørgsel på enkelt Product baseret på id
     final static String singleProductSql = "SELECT p.id, p.producttypeId, p.name, p.price " +
                          "FROM products p WHERE p.id = ?";
+    
+    final static String productsOfTypeSql = "SELECT p.id, p.producttypeId, p.name, p.price " +
+                        "FROM products p WHERE p.producttypeId = ?";
                          
     
     // SQL til forespørgsl på alle recipes.
@@ -172,6 +175,17 @@ public class ProductDAO {
                       
     }
     
+    public static ArrayList<ProductDTO> getProductsOfType(int producttypeId)
+    {
+        ArrayList<ProductDTO> products = new ArrayList<ProductDTO>();
+        try
+        {
+            connection = DBConnection.getConnection();
+            // try to get products.
+            PreparedStatement pstm = connection.prepareStatement(productsOfTypeSql);
+            pstm.setInt(1, productId);
+        }
+    }
     
     
     public static ProductDTO getSingleProduct(int productId)
@@ -203,7 +217,9 @@ public class ProductDAO {
         
         return productDTO;
     }
-
+    
+    
+    
     /**
      * Maps a product from resultset to ProductDTO.     
      * @param rs
