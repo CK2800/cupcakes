@@ -33,32 +33,23 @@
         <%-- are there any cupcakes, print them. --%>
         <div class="row">
                 <div class="col-md-3" style="margin-top: 35px;">
-                <label for="zip">Zip</label>
+                <label for="zip">Qty</label>
                 <input type="text" class="form-control" id="zip" placeholder="" required="">
-                <div class="invalid-feedback">
-                  Zip code required.
-                </div>
               </div>
               <div class="col-md-7">
-                <label for="country">Country</label>
+                <label for="country">Top</label>
                 <select class="custom-select d-block w-100" id="country" required="">
-                  <option value="">Choose...</option>
+                  <option value="">Top</option>
                   <option>United States</option>
                 </select>
-                <div class="invalid-feedback">
-                  Please select a valid country.
-                </div>
-                <label for="state">State</label>
+                <label for="state">Bund</label>
                 <select class="custom-select d-block w-100" id="state" required="">
-                  <option value="">Choose...</option>
+                  <option value="">Bund</option>
                   <option>California</option>
                 </select>
-                <div class="invalid-feedback">
-                  Please provide a valid state.
-                </div>
               </div>
                 <div class="col-md-2" style="margin-top: 65px;">
-                <button type="button" class="btn btn-success btn-lg">Success</button>
+                <button type="button" class="btn btn-success btn-lg">Betal</button>
               </div>
             </div>
         <%-- are there any recipes, print them. --%>
