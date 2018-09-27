@@ -40,7 +40,7 @@
         <h1>Velkommen <%= (userDTO != null ? userDTO.getUsername(): " til Cupcakes") %>!</h1>
         <%-- are there any cupcakes, print them. --%>
         <div class="row">
-            <form style="display:inherit; width:100%" action="/FrontController" method="<%= FrontController.POST %>">
+            <form style="display:inherit; width:100%" action="FrontController" method="<%= FrontController.POST %>">
                 <input type="hidden" name="origin" value="<%= FrontController.ADD_TO_BASKET %>" />
                 <div class="col-md-3" style="margin-top: 35px;">
                 <label for="zip">Qty</label>
@@ -53,6 +53,7 @@
                 <%= bottomsDropDown %>
               </div>
                 <div class="col-md-2" style="margin-top: 65px;">
+                    <input type="submit" value="Bestil" />
                 <button type="button" class="btn btn-success btn-lg">Bestil</button>
               </div>
               </form>

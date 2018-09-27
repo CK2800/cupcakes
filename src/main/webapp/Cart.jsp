@@ -5,6 +5,11 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="jhc.data.ProductDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%
+    ArrayList<ProductDTO> products = (ArrayList<ProductDTO>)request.getSession().getAttribute("lineItems");
+%>
 <!DOCTYPE html>
 <html>
     <head>
