@@ -52,7 +52,7 @@ public class UserDAO {
      */
     public static UserDTO MapUser(ResultSet rs) throws Exception
     {
-        UserDTO userDTO = new UserDTO(rs.getInt("id"), rs.getString("name"), rs.getString("password"));        
+        UserDTO userDTO = new UserDTO(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getFloat("balance"));        
         
         if(userDTO.getId() > 0)
             return userDTO;
