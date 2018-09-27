@@ -30,14 +30,9 @@
         <div id="container">
             <h1> <a href="./" >Cupcakes</a></h1>
             <div class="topnav">
-                <a class="active" href="./">Home</a>
-                <a href="/FrontController?origin=">Create user</a>
-                <a href="/FrontController?origin=">Login</a>
-                
+                <a href="./">Home</a>
+                <a href="/cupcakes/FrontController?origin=<%= FrontController.LOGIN %>">Login</a>
             </div>
-            
-         
-            <h2>Create user page</h2>
 
             <%= errorMessage%>
             <form action="FrontController" method="POST">
@@ -45,14 +40,19 @@
 
         
                 <img src="https://www.fifteenspatulas.com/wp-content/uploads/2011/10/Chocolate-Peanut-Butter-Cupcakes-Fifteen-Spatulas-14-640x959.jpg" alt="Cupcake" style="width:500px;height:450px;"/> 
-                
-                <label>Email</label>
-                <input type="text" name="name" placeholder="Username" class="form-control"/>
+                <div class="inputValue">
+                    <label>Email</label>
+                    <input type="text" name="name" placeholder="Email"/>
+                </div>
+                <div class="inputValue">
                 <label>Username</label>
-                <input type="password" name="password" placeholder="Password" />
+                <input type="password" name="password" placeholder="Username" />
+                </div>
+                <div class="inputValue">
                 <label>Password</label>
                 <input type="password" name="password" placeholder="Password" />
-                <input type="submit" value="Create User"/>            
+                </div>
+                <input type="submit" value="Create User" id="create"/>            
             </form>
         </div>
     </body>

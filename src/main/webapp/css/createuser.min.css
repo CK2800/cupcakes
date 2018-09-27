@@ -72,7 +72,7 @@ h1 {
     font-size: 65px;
 }
 h1 a {
-    text-decoration: #FFF;
+    text-decoration: none;
     color: #FFF;
     
 }
@@ -80,3 +80,24 @@ h1 a:hover {
     text-decoration: #f2f2f2;
 }
 
+.inputValue {
+    width: 100%;
+}
+.inputValue label{
+    font-weight: bold;
+}
+.inputValue input {
+    clear: both;
+    width: 96%;
+    padding: 5px 10px;
+    margin: 3px 0;
+}
+
+#create {
+    background: #00ff00;
+    border: 0;
+    padding: 5px 10px;
+    margin: 5px 0;
+    width: 100%;
+    font-weight: bold;
+}
