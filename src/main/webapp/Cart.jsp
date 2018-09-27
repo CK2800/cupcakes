@@ -71,6 +71,7 @@
                     <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
                 </div>
                 <div class="col-md-4">
+                    <a href="./" class="btn btn-primary btn-block btn-sm" style="margin-bottom: 10px;">Tilføj flere vare</a>
                     <div class="col-md-12">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                       <span class="text-muted">Your cart</span>
