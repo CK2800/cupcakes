@@ -62,7 +62,7 @@ public class FrontController extends HttpServlet
                     int qty = Integer.parseInt(request.getParameter("qty"));
                     
                     ProductDTO bottom = ProductDAO.getSingleProduct(bottomId);
-                    ProductDTO top = ProductDAO.getSingleProduct(toppingId);
+                    ProductDTO topping = ProductDAO.getSingleProduct(toppingId);
                     
                     HttpSession session = request.getSession();
                     
@@ -70,8 +70,8 @@ public class FrontController extends HttpServlet
                     if (lineItems == null)
                         lineItems = new ArrayList<LineItemDTO>();
                     
-                    lineItems.add(new LineItemDTO(bottomId, qty, bottom.getPrice()));
-                    lineItems.add(new LineItemDTO(toppingId, qty, top.getPrice()));
+                    lineItems.add(new LineItemDTO(0, bottomId, bottom.getName(), qty, bottom.getPrice()));
+                    lineItems.add(new LineItemDTO(0, toppingId, topping.getName(), qty, topping.getPrice()));
                     
                     session.setAttribute("lineItems", lineItems);
                     

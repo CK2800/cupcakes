@@ -7,6 +7,7 @@ package jhc.presentation;
 
 import java.util.ArrayList;
 import jhc.data.ProductDTO;
+import jhc.data.LineItemDTO;
 
 /**
  *
@@ -14,6 +15,20 @@ import jhc.data.ProductDTO;
  */
 public class Utils
 {
+    public static String cartListItems(ArrayList<LineItemDTO> lineItems)
+    {
+        String listitems = "";
+        for (LineItemDTO lineItem : lineItems)
+        {
+            listitems += "<li class='list-group-item d-flex justify-content-between lh-condensed'><div>" +
+                         "<h6 class='my-0'>" + lineItem.getProductName() + "</h6>" +
+                         //<small class="text-muted">Brief description</small>
+                        "</div>" +
+                        "<span class='text-muted'>" + lineItem.getQty() * lineItem.getPrice() + "</span></li>";
+        }
+        return listitems;
+    }
+    
     /**
      * Converts an ArrayList of ProductDTO objects to a HTML select element.
      * @param products Collection of ProductDTO objects.
