@@ -4,6 +4,7 @@
     Author     : Jesper
 --%>
 
+<%@page import="jhc.presentation.FrontController"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="jhc.data.LineItemDTO"%>
 <%@page import="jhc.presentation.Utils"%>
@@ -23,7 +24,7 @@
     <body>
         <div class="container">
             <jsp:include page="ViewTop/view.jsp"></jsp:include>
-            <form action="FrontController" method="POST">
+            <form action="FrontController?origin=<%= FrontController.CREATE_ORDER %>" method="POST">
             <div class="row">
                 <div class="col-md-8">
                     <h4 class="mb-3">Payment</h4>
