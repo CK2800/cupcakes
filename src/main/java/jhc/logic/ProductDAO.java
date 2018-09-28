@@ -143,38 +143,7 @@ public class ProductDAO {
         
         
     }
-    
-    /**
-     * Retrieves all recipes and converts them into html table.
-     * @return A HTML table.
-     */
-    public static String getRecipesTable(String contextPath)
-    {
-        String html = "<table class='table table-striped'><tr><th>id</th><th>user id</th><th>headline</th><th>rating</th></tr>";
-        ArrayList<RecipeDTO> recipes = getRecipes();
-        for(RecipeDTO recipe : recipes)
-        {
-            html += recipeDTOToTable(contextPath, recipe);
-        }
-        html += "</table>";
-        return html;
-    }
-    
-    /**
-     * Helper method to convert a RecipeDTO to a HTML table row.
-     * 
-     * @param recipeDTO
-     * @return A HTML table row.
-     */
-    public static String recipeDTOToTable(String contextPath, RecipeDTO recipeDTO)
-    {
-        String anchor = "<a href='" + contextPath + "/FrontController?origin=" + FrontController.SHOW_SINGLE_RECIPE + "&id=" + recipeDTO.getId() + "'>";
-        String html = "<tr><td>" + anchor + recipeDTO.getId() + "</a></td><td>" + anchor + recipeDTO.getuserId() + 
-                      "</a></td><td>"+anchor+ recipeDTO.getHeadline() + "</a></td><td>" + anchor + recipeDTO.getRating() + "</a></td></tr>";
-        return html;
-                      
-    }
-    
+       
     public static ArrayList<ProductDTO> getProductsOfType(int producttypeId)
     {
         ArrayList<ProductDTO> products = new ArrayList<ProductDTO>();

@@ -24,8 +24,7 @@ import jhc.logic.UserDAO;
  */
 public class FrontController extends HttpServlet 
 {
-
-    public static final String SHOW_SINGLE_RECIPE = "singleRecipe";
+    public static final String INVOICE = "invoiceDetails";
     public static final String CREATE_RECIPE = "createRecipe";
     public static final String ADD_TO_BASKET = "addToBasket";
     public static final String EDIT_RECIPE = "editRecipe";
@@ -89,8 +88,8 @@ public class FrontController extends HttpServlet
                     request.getRequestDispatcher("createUser.jsp").forward(request, response);
                 }
                 break;
-                case SHOW_SINGLE_RECIPE: {
-                    request.getRequestDispatcher("singleRecipe.jsp").forward(request, response);
+                case INVOICE: {
+                    request.getRequestDispatcher("customerspage/invoiceDetails.jsp").forward(request, response);
                 }
                 break;
 
