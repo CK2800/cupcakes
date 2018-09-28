@@ -20,11 +20,8 @@
 
         <meta charset="utf-8">
         <link href="css/createuser.min.css" rel="stylesheet" type="text/css">
-
-        <!--
-             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-             <title>JSP Page</title>
-        -->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
     </head>
     <body>
         <div id="container">

@@ -23,7 +23,7 @@
     ArrayList<ProductDTO> toppings = ProductDAO.getProductsOfType(2);
     String bottomsDropDown = Utils.ProductDropDown(bottoms, "bottoms", "bottoms");
     String toppingsDropDown = Utils.ProductDropDown(toppings, "toppings", "toppings");
-    
+    UserDTO user = (UserDTO)request.getSession().getAttribute("userDTO");
 
 %>
 <!DOCTYPE html>
@@ -51,8 +51,7 @@
                 <%= bottomsDropDown %>
               </div>
                 <div class="col-md-2" style="margin-top: 65px;">
-                    <input type="submit" value="Bestil" />
-                <button type="button" class="btn btn-success btn-lg">Bestil</button>
+                    <input type="submit" value="Bestil" class="btn btn-success btn-lg" />
               </div>
               </form>
             </div>

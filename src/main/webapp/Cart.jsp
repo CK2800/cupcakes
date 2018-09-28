@@ -11,6 +11,7 @@
 <%
     ArrayList<LineItemDTO> products = (ArrayList<LineItemDTO>)request.getSession().getAttribute("lineItems");
     String productsListItems = Utils.cartListItems(products);
+    float total = Utils.calculateCartTotals(products).getTotal();
 %>
 <!DOCTYPE html>
 <html>
@@ -77,7 +78,7 @@
                     <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
                 </div>
                 <div class="col-md-4">
-                    <a href="./" class="btn btn-primary btn-block btn-sm" style="margin-bottom: 10px;">Tilføj flere vare</a>
+                    <a href="./" class="btn btn-primary btn-block btn-sm" style="margin-bottom: 10px; margin-top: 5px;">Tilføj flere vare</a>
                     <div class="col-md-12">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                       <span class="text-muted">Your cart</span>
@@ -88,7 +89,7 @@
 
                       <li class="list-group-item d-flex justify-content-between">
                         <span>Total (DKK)</span>
-                        <strong>$20</strong>
+                        <strong><%= total %>,- kr</strong>
                       </li>
                     </ul>
                   </div>

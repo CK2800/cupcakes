@@ -57,9 +57,14 @@ public class Utils
         // Calculate total of cart.
         CartTotals cartTotals = calculateCartTotals(lineItems);
         
-        cartHTML += cartTotals.getCount() + " cupcake parts in basket";
-        if (cartTotals.getCount() > 0)
-            cartHTML += ", total: " + cartTotals.getTotal();
+        if(cartTotals.getCount() > 0)
+        {
+            cartHTML += "<a href='/cupcakes/FrontController?origin=" + FrontController.CHECKOUT + "'>" + cartTotals.getCount() + " cupcake parts in basket, total: " + cartTotals.getTotal() + ",- kr (DKK)</a>";
+        }
+        else
+        {
+            cartHTML = "Intet i kurven";
+        }
         
         return cartHTML;
     }
