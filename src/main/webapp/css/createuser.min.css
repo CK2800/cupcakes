@@ -30,8 +30,8 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 body {
-    background: #666600;
-    color:#FFF;     
+    background: #D2691E;
+    color:#FFFDDo;     
 }
 /* use id as # to hit specific element*/
 #container{
@@ -94,7 +94,7 @@ h1 a:hover {
 }
 
 #create {
-    background: #00ff00;
+    background: #8B4513;
     border: 0;
     padding: 5px 10px;
     margin: 5px 0;
