@@ -54,7 +54,7 @@ public class OrderDAO
     private static OrderDTO MapOrder(ResultSet rs) throws Exception
     {
         return new OrderDTO(rs.getInt("id"), rs.getInt("userId"));
-
+    }
 //    public static ArrayList<OrderDTO> getUserOrders(UserDTO user)
 //    {
 //        
