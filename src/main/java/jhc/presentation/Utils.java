@@ -29,7 +29,7 @@ public class Utils
         }
     }
     
-    private static CartTotals calculateCartTotals(ArrayList<LineItemDTO> lineItems)
+    public static CartTotals calculateCartTotals(ArrayList<LineItemDTO> lineItems)
     {
         // Calculate total of cart.
         float total = 0;
