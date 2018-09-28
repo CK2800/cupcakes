@@ -69,6 +69,9 @@ public class FrontController extends HttpServlet
                     if (lineItems == null)
                         lineItems = new ArrayList<LineItemDTO>();
                     
+                    // See if same product has already been ordered in this session.
+                    //for(LineItemDTO lineItem)
+                    
                     lineItems.add(new LineItemDTO(0, bottomId, bottom.getName(), qty, bottom.getPrice()));
                     lineItems.add(new LineItemDTO(0, toppingId, topping.getName(), qty, topping.getPrice()));
                     

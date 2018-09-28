@@ -16,15 +16,25 @@ import jhc.data.UserDTO;
  */
 public class Utils
 {
-    
-    public static String cartDetails(ArrayList<LineItemDTO> lineItems, UserDTO user)
+    public static class CartTotals
     {
-        
-        String cartHTML = (user != null) ? user.getUsername() + " " : "";
+        private int count;
+        private float total;
+        public int getCount(){return count;}
+        public float getTotal(){return total;}
+        public CartTotals(int count, float total)
+        {
+            this.count = count;
+            this.total = total;
+        }
+    }
+    
+    private static CartTotals calculateCartTotals(ArrayList<LineItemDTO> lineItems)
+    {
+        // Calculate total of cart.
         float total = 0;
         int count = 0;
-        
-        // Calculate total of cart.
+        CartTotals cartTotals;
         if (lineItems != null)
         {            
             for(LineItemDTO lineItem : lineItems)
@@ -34,10 +44,22 @@ public class Utils
             }            
             
         }
+        return new CartTotals(count, total);        
+    }
+    
+    public static String cartDetails(ArrayList<LineItemDTO> lineItems, UserDTO user)
+    {
         
-        cartHTML += count + " cupcake parts in basket";
-        if (count > 0)
-            cartHTML += ", total: " + total;
+        String cartHTML = (user != null) ? user.getUsername() + " " : "";
+        float total = 0;
+        int count = 0;
+        
+        // Calculate total of cart.
+        CartTotals cartTotals = calculateCartTotals(lineItems);
+        
+        cartHTML += cartTotals.getCount() + " cupcake parts in basket";
+        if (cartTotals.getCount() > 0)
+            cartHTML += ", total: " + cartTotals.getTotal();
         
         return cartHTML;
     }
