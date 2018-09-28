@@ -19,7 +19,7 @@ public class UserDAO {
     
     private static Connection connection;
     
-    private static final String userByNameSql = "SELECT id, name, password FROM user WHERE name = ?";
+    private static final String userByNameSql = "SELECT id, username, password, balance  FROM users WHERE username = ?";
     public static UserDTO getUser(String name)
     {
         UserDTO userDTO = null;
@@ -52,7 +52,7 @@ public class UserDAO {
      */
     public static UserDTO MapUser(ResultSet rs) throws Exception
     {
-        UserDTO userDTO = new UserDTO(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getFloat("balance"));        
+        UserDTO userDTO = new UserDTO(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getFloat("balance"));        
         
         if(userDTO.getId() > 0)
             return userDTO;

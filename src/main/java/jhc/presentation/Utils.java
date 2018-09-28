@@ -8,6 +8,7 @@ package jhc.presentation;
 import java.util.ArrayList;
 import jhc.data.ProductDTO;
 import jhc.data.LineItemDTO;
+import jhc.data.UserDTO;
 
 /**
  *
@@ -15,6 +16,32 @@ import jhc.data.LineItemDTO;
  */
 public class Utils
 {
+    
+    public static String cartDetails(ArrayList<LineItemDTO> lineItems, UserDTO user)
+    {
+        
+        String cartHTML = (user != null) ? user.getUsername() + " " : "";
+        float total = 0;
+        int count = 0;
+        
+        // Calculate total of cart.
+        if (lineItems != null)
+        {            
+            for(LineItemDTO lineItem : lineItems)
+            {
+                total += lineItem.getQty() * lineItem.getPrice();            
+                count += lineItem.getQty();
+            }            
+            
+        }
+        
+        cartHTML += count + " cupcake parts in basket";
+        if (count > 0)
+            cartHTML += ", total: " + total;
+        
+        return cartHTML;
+    }
+    
     public static String cartListItems(ArrayList<LineItemDTO> lineItems)
     {
         String listitems = "";
