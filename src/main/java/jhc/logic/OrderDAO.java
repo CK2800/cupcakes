@@ -7,6 +7,8 @@ package jhc.logic;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import jhc.data.DBConnection;
 import jhc.data.LineItemDTO;
@@ -25,16 +27,34 @@ public class OrderDAO
     private static Connection connection;
     public static boolean createOrder(UserDTO user, ArrayList<LineItemDTO> lineItems)
     {
+        boolean created = false;
         try
         {
             connection = DBConnection.getConnection();
-            PreparedStatement pstm = connection.prepareStatement(CREATE_ORDER_SQL);
-            //pstm.setInt(1, user.)
+            PreparedStatement pstm = connection.prepareStatement(CREATE_ORDER_SQL, Statement.RETURN_GENERATED_KEYS);
+            pstm.setInt(1, user.getId());
+            
+            // create order.
+             pstm.executeUpdate();
+             ResultSet rs = pstm.getGeneratedKeys();
+            //Q&D
+            int orderId = rs.getInt("id");
+            
+            for(LineItemDTO lineItem : lineItems)
+            {
+                pstm = connection.prepareStatement(INSERT_LINE_ITEM_SQL);
+                pstm.setInt(1, orderId);
+                pstm.setInt(2, lineItem.getProductId());
+                pstm.setInt(3, lineItem.getQty());
+                pstm.setFloat(4, lineItem.getPrice());
+                pstm.executeUpdate();
+            }
+            created = true;
         }
         catch(Exception e)
         {
             System.out.println("OrderDAO.createOrder(UserDTO, ArrayList<LineItemDTO>): " + e.getMessage());
         }
-        return false;
+        return created;
     }
 }

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import jhc.data.LineItemDTO;
 import jhc.data.ProductDTO;
 import jhc.data.UserDTO;
+import jhc.logic.OrderDAO;
 import jhc.logic.ProductDAO;
 import jhc.logic.UserDAO;
 
@@ -28,6 +29,7 @@ public class FrontController extends HttpServlet
     public static final String CREATE_RECIPE = "createRecipe";
     public static final String ADD_TO_BASKET = "addToBasket";
     public static final String EDIT_RECIPE = "editRecipe";
+    public static final String CREATE_ORDER = "createOrder";
     public static final String CREATE_USER = "createUser";
     public static final String CHECKOUT = "checkout";
     public static final String LOGIN = "login";
@@ -52,6 +54,22 @@ public class FrontController extends HttpServlet
         {
             switch (origin) 
             {
+                case CREATE_ORDER:
+                {
+                    // Get session user and cart.
+                    ArrayList<LineItemDTO> lineItems = (ArrayList<LineItemDTO>)request.getSession().getAttribute("lineItems");
+                    UserDTO user = (UserDTO)request.getSession().getAttribute("userDTO");
+                    if (user != null && lineItems != null && !lineItems.isEmpty())
+                    {
+                        if (OrderDAO.createOrder(user, lineItems))
+                        {
+                            // remove lineitems from session
+                            request.getSession().setAttribute("lineItems", null);
+                            
+                        }
+                    }
+                }
+                break;
                 case ADD_TO_BASKET:
                 {
                     
