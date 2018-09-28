@@ -41,15 +41,13 @@ public class Utils
             {
                 total += lineItem.getQty() * lineItem.getPrice();            
                 count += lineItem.getQty();
-            }            
-            
+            }  
         }
         return new CartTotals(count, total);        
     }
     
     public static String cartDetails(ArrayList<LineItemDTO> lineItems, UserDTO user)
-    {
-        
+    {        
         String cartHTML = (user != null) ? user.getUsername() + " " : "";
         float total = 0;
         int count = 0;
