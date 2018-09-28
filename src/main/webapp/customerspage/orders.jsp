@@ -4,6 +4,15 @@
     Author     : Claus
 --%>
 
+<%@page import="jhc.data.OrderDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="jhc.logic.OrderDAO"%>
+<%@page import="jhc.data.UserDTO"%>
+<%
+    UserDTO user = (UserDTO)request.getSession().getAttribute("userDTO");
+    ArrayList<OrderDTO> orders = OrderDAO.getUserOrders(user);
+%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

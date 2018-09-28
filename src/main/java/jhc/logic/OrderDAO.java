@@ -29,7 +29,29 @@ public class OrderDAO
     
     public static ArrayList<OrderDTO> getUserOrders(UserDTO user)
     {
-        
+        ArrayList<OrderDTO> orders = new ArrayList<OrderDTO>();
+        try
+        {
+            connection = DBConnection.getConnection();
+            PreparedStatement pstm = connection.prepareStatement(GET_USER_ORDERS_SQL);
+            pstm.setInt(1, user.getId());
+            
+            try(ResultSet rs = pstm.executeQuery();)
+            {
+                while(rs.next())
+                    orders.add(MapOrder(rs));
+            }                
+        }
+        catch(Exception e)
+        {
+            System.out.println("OrderDAO.getUserOrders(UserDTO): " + e.getMessage());
+        }
+        return orders;
+    }
+    
+    private static OrderDTO MapOrder(ResultSet rs) throws Exception
+    {
+        return new OrderDTO(rs.getInt("id"), rs.getInt("userId"));
     }
     
     public static boolean createOrder(UserDTO user, ArrayList<LineItemDTO> lineItems)
@@ -44,8 +66,9 @@ public class OrderDAO
             // create order.
              pstm.executeUpdate();
              ResultSet rs = pstm.getGeneratedKeys();
+             rs.next();
             //Q&D
-            int orderId = rs.getInt("id");
+            int orderId = rs.getInt(1);
             
             for(LineItemDTO lineItem : lineItems)
             {
