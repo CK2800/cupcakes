@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -27,6 +28,7 @@ public class OrderDAO
     private static final String GET_USER_ORDERS_SQL = "SELECT id FROM orders WHERE userId = ?;";
     private static Connection connection;
     
+<<<<<<< HEAD
     public static ArrayList<OrderDTO> getUserOrders(UserDTO user)
     {
         ArrayList<OrderDTO> orders = new ArrayList<OrderDTO>();
@@ -52,6 +54,15 @@ public class OrderDAO
     private static OrderDTO MapOrder(ResultSet rs) throws Exception
     {
         return new OrderDTO(rs.getInt("id"), rs.getInt("userId"));
+
+//    public static ArrayList<OrderDTO> getUserOrders(UserDTO user)
+//    {
+//        
+//    }
+    
+    public static void main(String[] args) {
+        createOrder(new UserDTO(1, "Jesper", "Petersen", 0), new ArrayList());
+
     }
     
     public static boolean createOrder(UserDTO user, ArrayList<LineItemDTO> lineItems)
@@ -68,8 +79,7 @@ public class OrderDAO
              ResultSet rs = pstm.getGeneratedKeys();
              rs.next();
             //Q&D
-            int orderId = rs.getInt(1);
-            
+            int orderId = rs.getInt(1);            
             for(LineItemDTO lineItem : lineItems)
             {
                 pstm = connection.prepareStatement(INSERT_LINE_ITEM_SQL);
