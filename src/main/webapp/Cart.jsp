@@ -23,6 +23,7 @@
     <body>
         <div class="container">
             <jsp:include page="ViewTop/view.jsp"></jsp:include>
+            <form action="FrontController" method="POST">
             <div class="row">
                 <div class="col-md-8">
                     <h4 class="mb-3">Payment</h4>
@@ -95,6 +96,7 @@
                   </div>
                 </div>
             </div>
+            </form>
         </div>
     </body>
 </html>
