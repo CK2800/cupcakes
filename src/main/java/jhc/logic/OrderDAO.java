@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import jhc.data.DBConnection;
 import jhc.data.LineItemDTO;
+import jhc.data.OrderDTO;
 import jhc.data.UserDTO;
 
 
@@ -23,8 +24,14 @@ public class OrderDAO
 {
     private static final String INSERT_LINE_ITEM_SQL = "INSERT INTO lineitems(orderId, productId, qty, price) VALUES(?,?,?,?);";
     private static final String CREATE_ORDER_SQL = "INSERT INTO orders(userId) VALUES(?);";
-    
+    private static final String GET_USER_ORDERS_SQL = "SELECT id FROM orders WHERE userId = ?;";
     private static Connection connection;
+    
+    public static ArrayList<OrderDTO> getUserOrders(UserDTO user)
+    {
+        
+    }
+    
     public static boolean createOrder(UserDTO user, ArrayList<LineItemDTO> lineItems)
     {
         boolean created = false;

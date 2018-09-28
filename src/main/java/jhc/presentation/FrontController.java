@@ -65,7 +65,12 @@ public class FrontController extends HttpServlet
                         {
                             // remove lineitems from session
                             request.getSession().setAttribute("lineItems", null);
-                            
+                            request.getRequestDispatcher("customerspage/orders.jsp").forward(request, response);                            
+                        }
+                        else
+                        {
+                            // order not created, return to checkout.
+                            request.getRequestDispatcher("Cart.jsp").forward(request, response);
                         }
                     }
                 }
