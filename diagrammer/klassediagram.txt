@@ -1,0 +1,37 @@
+@startuml
+
+title Cupcake DCD v1
+object product{
+    id : Int
+    name : String
+    price : Float
+}
+
+object producttype{
+    id : Int
+    type : String
+}
+object customer{
+    id : Int
+    username : String
+    password : String
+    balance : Float
+}
+
+object order{
+    id : Int
+}
+
+object lineitems{
+    id : Int
+    qty : Int
+    price : Float
+}
+
+
+order "1" *-- "m" product : consists-of >
+order "m " *-- "1" customer: is-placed-by >
+product "0..m" o-- "1" producttype : is-of-type >
+lineitems "m" --* "1" order : < has
+
+@enduml
