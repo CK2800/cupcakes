@@ -1,0 +1,32 @@
+@startuml
+
+title Cupcake domain model v1
+object cupcake
+object pickup
+object customer
+object order
+object cupcake_machine
+object bottom
+object topping
+object combination
+object account
+object money
+object withdrawal
+object deposit
+
+order "1" *-- "m" cupcake : consists-of >
+order *-- customer: < places
+cupcake "1" *-- "1" combination : > is-a
+combination "1" *-- "1" topping :  has-a >
+combination "1" *-- "1" bottom: has-a >
+customer "1" *-- "1" account: has-an >
+cupcake_machine .. cupcake:makes >
+pickup .. customer:< makes
+pickup .. order
+money .. account:is-on >
+withdrawal .. account:is-made-from >
+deposit .. account:is-made-to >
+
+
+
+@enduml
