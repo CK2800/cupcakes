@@ -4,7 +4,10 @@ title Packages - Class Diagram
 
 package jhc{
     package data{
-        Class DBConnection
+        Class DBConnection{
+            DB_DRIVER_CLASS : String
+            getConnection() : Connection
+        }
         Class LineItemDTO
         Class OrderDTO
         Class ProductDTO
