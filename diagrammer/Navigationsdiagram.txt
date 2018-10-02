@@ -3,6 +3,8 @@
 title Navigationsdiagram \n
 
 note "Find ud af om du findes i databasen" as N1
+
+note "Når man er færdig med sit køb så kan man køb mere." as N3
 note "Så snart, at du er login på siden.\n så har du hele tiden mulighed for, at log ud" as N2
 
 state NotLogin {
