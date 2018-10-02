@@ -1,0 +1,30 @@
+@startuml
+
+title Navigationsdiagram \n
+
+note "Find ud af om du findes i databasen" as N1
+
+note "Når man er færdig med sit køb så kan man køb mere." as N3
+note "Så snart, at du er login på siden.\n så har du hele tiden mulighed for, at log ud" as N2
+
+state NotLogin {
+[*] --> index.jsp
+index.jsp -> FrontController
+FrontController --> login.jsp
+login.jsp --> N1
+}
+
+N1 --> login.jsp
+
+
+state LoginUser {
+N1 --> index1.jsp
+
+index1.jsp --> Frontcontroller
+Frontcontroller --> check.jsp
+check.jsp --> faktura.jsp
+}
+
+
+
+@enduml
