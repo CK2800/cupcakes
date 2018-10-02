@@ -28,7 +28,7 @@ public class OrderDAO
     private static final String GET_USER_ORDERS_SQL = "SELECT id FROM orders WHERE userId = ?;";
     private static Connection connection;
     
-<<<<<<< HEAD
+
     public static ArrayList<OrderDTO> getUserOrders(UserDTO user)
     {
         ArrayList<OrderDTO> orders = new ArrayList<OrderDTO>();

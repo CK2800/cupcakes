@@ -1,0 +1,25 @@
+@startuml
+
+title "Buy cupcake - Sequence Diagram"
+
+actor User
+participant CardReader
+participant BankInfo
+participant Display
+participant KeyPad
+
+
+User -> CardReader: Choose payment method
+CardReader -> BankInfo: validate card information
+BankInfo -> CardReader: card validated
+CardReader -> Display: ask for password
+Display -> User: prompt user to input password
+User -> KeyPad: input password
+KeyPad -> BankInfo: verify password
+BankInfo -> KeyPad: password verified
+KeyPad -> Display: show main menu
+
+User-> KeyPad: select to withdraw money
+User -> KeyPad: input the amount
+
+@enduml
