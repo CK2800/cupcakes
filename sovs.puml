@@ -1,0 +1,31 @@
+@startuml
+annotation java.lang.Override
+class java.io.IOException
+class java.sql.Connection
+class java.sql.DriverManager
+class java.sql.PreparedStatement
+class java.sql.ResultSet
+class java.sql.SQLException
+class java.sql.Statement
+class java.util.ArrayList
+class javax.servlet.ServletException
+class javax.servlet.http.HttpServlet
+class javax.servlet.http.HttpServletRequest
+class javax.servlet.http.HttpServletResponse
+class javax.servlet.http.HttpSession
+class jhc.data.DBConnection
+class jhc.data.ImageDTO
+class jhc.data.LineItemDTO
+class jhc.data.OrderDTO
+class jhc.data.ProductDTO
+class jhc.data.RatingDTO
+class jhc.data.RecipeDTO
+class jhc.data.UserDTO
+class jhc.logic.OrderDAO
+class jhc.logic.ProductDAO
+class jhc.logic.UserDAO
+class jhc.presentation.FrontController
+class jhc.presentation.Utils
+jhc.presentation.FrontController ..> java.lang.Override
+jhc.presentation.FrontController --|> javax.servlet.http.HttpServlet
+@enduml

@@ -3,6 +3,10 @@
 title Packages - Class Diagram
 
 package jhc{
+package presentation{
+        Class FrontController
+        Class Utils
+    }
     package data{
         Class DBConnection{
             DB_DRIVER_CLASS : String
@@ -13,15 +17,25 @@ package jhc{
         Class ProductDTO
         Class UserDTO
     }
-    package presentation{
-        Class FrontController
-        Class Utils
-    }
+    
     package logic{
         Class OrderDAO
         Class ProductDAO
         Class UserDAO
     }
+    
+    FrontController o-- UserDAO
+    FrontController o-- OrderDAO
+    FrontController o-- ProductDAO
+    
+    UserDAO *-- UserDTO
+    OrderDAO *-- OrderDTO
+    OrderDAO *-- LineItemDTO
+    ProductDAO *-- ProductDTO
+    
+    UserDAO o-- DBConnection
+    OrderDAO o-- DBConnection
+    ProductDAO o-- DBConnection
 }
 
 @enduml

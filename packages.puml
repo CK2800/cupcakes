@@ -1,0 +1,74 @@
+@startuml
+annotation java.lang.Override
+class java.io.IOException
+class java.sql.Connection
+class java.sql.DriverManager
+class java.sql.PreparedStatement
+class java.sql.ResultSet
+class java.sql.SQLException
+class java.sql.Statement
+class java.util.ArrayList
+class javax.servlet.ServletException
+class javax.servlet.http.HttpServlet
+class javax.servlet.http.HttpServletRequest
+class javax.servlet.http.HttpServletResponse
+class javax.servlet.http.HttpSession
+class jhc.data.DBConnection
+class jhc.data.ImageDTO
+class jhc.data.LineItemDTO
+class jhc.data.OrderDTO
+class jhc.data.ProductDTO
+class jhc.data.RatingDTO
+class jhc.data.RecipeDTO
+class jhc.data.UserDTO
+class jhc.logic.OrderDAO
+class jhc.logic.ProductDAO
+class jhc.logic.UserDAO
+class jhc.presentation.FrontController
+class jhc.presentation.Utils
+jhc.data.DBConnection ..> java.sql.Connection
+jhc.data.DBConnection ..> java.sql.DriverManager
+jhc.data.DBConnection ..> java.sql.SQLException
+jhc.data.OrderDTO ..> java.util.ArrayList
+jhc.logic.OrderDAO ..> java.sql.Connection
+jhc.logic.OrderDAO ..> java.sql.PreparedStatement
+jhc.logic.OrderDAO ..> java.sql.ResultSet
+jhc.logic.OrderDAO ..> java.sql.Statement
+jhc.logic.OrderDAO ..> java.util.ArrayList
+jhc.logic.OrderDAO ..> jhc.data.DBConnection
+jhc.logic.OrderDAO ..> jhc.data.LineItemDTO
+jhc.logic.OrderDAO ..> jhc.data.OrderDTO
+jhc.logic.OrderDAO ..> jhc.data.UserDTO
+jhc.logic.ProductDAO ..> java.sql.Connection
+jhc.logic.ProductDAO ..> java.sql.PreparedStatement
+jhc.logic.ProductDAO ..> java.sql.ResultSet
+jhc.logic.ProductDAO ..> java.util.ArrayList
+jhc.logic.ProductDAO ..> jhc.data.DBConnection
+jhc.logic.ProductDAO ..> jhc.data.ImageDTO
+jhc.logic.ProductDAO ..> jhc.data.ProductDTO
+jhc.logic.ProductDAO ..> jhc.data.RecipeDTO
+jhc.logic.ProductDAO ..> jhc.presentation.FrontController
+jhc.logic.UserDAO ..> java.sql.Connection
+jhc.logic.UserDAO ..> java.sql.PreparedStatement
+jhc.logic.UserDAO ..> java.sql.ResultSet
+jhc.logic.UserDAO ..> jhc.data.DBConnection
+jhc.logic.UserDAO ..> jhc.data.UserDTO
+jhc.presentation.FrontController ..> java.lang.Override
+jhc.presentation.FrontController ..> java.io.IOException
+jhc.presentation.FrontController ..> java.util.ArrayList
+jhc.presentation.FrontController ..> javax.servlet.ServletException
+jhc.presentation.FrontController --|> javax.servlet.http.HttpServlet
+jhc.presentation.FrontController ..> javax.servlet.http.HttpServletRequest
+jhc.presentation.FrontController ..> javax.servlet.http.HttpServletResponse
+jhc.presentation.FrontController ..> javax.servlet.http.HttpSession
+jhc.presentation.FrontController ..> jhc.data.LineItemDTO
+jhc.presentation.FrontController ..> jhc.data.ProductDTO
+jhc.presentation.FrontController ..> jhc.data.UserDTO
+jhc.presentation.FrontController ..> jhc.logic.OrderDAO
+jhc.presentation.FrontController ..> jhc.logic.ProductDAO
+jhc.presentation.FrontController ..> jhc.logic.UserDAO
+jhc.presentation.Utils ..> java.util.ArrayList
+jhc.presentation.Utils ..> jhc.data.LineItemDTO
+jhc.presentation.Utils ..> jhc.data.ProductDTO
+jhc.presentation.Utils ..> jhc.data.UserDTO
+@enduml
