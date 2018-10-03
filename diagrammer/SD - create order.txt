@@ -1,0 +1,23 @@
+@startuml
+
+title "Create order - Sequence Diagram"
+
+actor User
+boundary "Cart.jsp" as GUI
+control "FrontController" as FC
+entity OrderDAO as oDAO
+entity DBConnection as DBC
+database cupcakes
+
+User -> GUI : [Click] Continue to checkout
+GUI -> FC : ProcessRequest
+FC -> FC : user = Session.getAttribute("userDTO")
+FC -> FC : lineItems = Session.getAttribute("lineItems")
+FC -> oDAO : createOrder(user, lineItems)
+oDAO -> DBC : conn = DBConnection.getConnection()
+DBC -> DBC : pstm = conn.prepareStatement(CREATE_ORDER_SQL)
+DBC -> DBC : pstm.setInt(1, user.getId())
+DBC -> DBC : pstm.executeUpdate()
+
+
+@enduml
