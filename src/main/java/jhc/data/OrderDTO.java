@@ -42,5 +42,14 @@ public class OrderDTO
         }
         return false;
     }
+    
+    /**
+     * Get the line items of an order.
+     * @return ArrayList of LineItemDTO objects.
+     */
+    public ArrayList<LineItemDTO> getLineItems()
+    {
+        return lineItems;
+    }
 
 }

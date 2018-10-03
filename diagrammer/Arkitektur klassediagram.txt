@@ -13,7 +13,9 @@ package presentation{
             getConnection() : Connection
         }
         Class LineItemDTO
-        Class OrderDTO
+        Class OrderDTO{
+            getLineItems() : ArrayList<LineItemDTO>
+        }
         Class ProductDTO
         Class UserDTO
     }
