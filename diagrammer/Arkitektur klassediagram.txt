@@ -4,16 +4,35 @@ title Packages - Class Diagram
 
 package jhc{
 package presentation{
-        Class FrontController
-        Class Utils
+        Class FrontController{
+            GET : String
+            POST : String
+            LOGIN : String
+            LOGOUT : String
+            INVOICE : String
+            CHECKOUT : String
+            CREATE_USER : String
+            CREATE_ORDER : String
+            ADD_TO_BASKET : String
+        }
+        Class Utils{
+            productDropDown(ArrayList<ProductDTO>, String, String) : String
+            calculateCartTotals(ArrayList<LineItemDTO>) : CartTotals
+            cartDetails(ArrayList<LineItemDTO>) : String
+            cartListItems(ArrayList<LineItemDTO>) : String
+        }
     }
     package data{
         Class DBConnection{
+            DB_URL : String
+            DB_USERNAME : String
+            DB_PASSWORD : String
             DB_DRIVER_CLASS : String
             getConnection() : Connection
         }
         Class LineItemDTO
         Class OrderDTO{
+            setLineItems(ArrayList<LineItemDTO>) : boolean
             getLineItems() : ArrayList<LineItemDTO>
         }
         Class ProductDTO
@@ -21,7 +40,14 @@ package presentation{
     }
     
     package logic{
-        Class OrderDAO
+        Class OrderDAO{
+            CREATE_ORDER_SQL : String
+            GET_USER_ORDERS_SQL : String
+            INSERT_LINE_ITEM_SQL : String
+            mapOrder(ResultSet) : OrderDTO
+            createOrder(UserDTO, ArrayList<LineItemDTO>) : boolean
+            getUserOrders(UserDTO) : ArrayList<OrderDTO>
+        }
         Class ProductDAO
         Class UserDAO
     }
