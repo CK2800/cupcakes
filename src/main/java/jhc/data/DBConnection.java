@@ -11,6 +11,7 @@ import java.sql.SQLException;
 /**
  *
  * @author Claus
+ * DBConnection facilitates an easy-to-configure access to our database.
  */
 public class DBConnection {
     
@@ -19,6 +20,12 @@ public class DBConnection {
 	public final static String DB_USERNAME = "cupcakeUser";
 	public final static String DB_PASSWORD = "Cupcake@2018";
 
+        /**
+         * Returns a connection for the configured database.
+         * @return Connection object.
+         * @throws ClassNotFoundException Thrown if the database driver class is not found.
+         * @throws SQLException Thrown if the DriverManager can not establish a connection to the database.
+         */
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
 
 		Connection con = null;

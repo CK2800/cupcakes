@@ -243,7 +243,7 @@ public class FrontController extends HttpServlet
 
     /**
      * Helper method to determine if session has a logged in user.
-     * @param request
+     * @param request Current HttpServletRequest
      * @return true if session has a UserDTO object, false otherwise.
      */
     public static boolean userIsAuthenticated(HttpServletRequest request)
@@ -252,10 +252,10 @@ public class FrontController extends HttpServlet
     }
     /**
      * Static helper method to log in user and store UserDTO in session.
-     * @param request
-     * @param name
-     * @param password
-     * @return true if user is logged in, false otherwise.
+     * @param request Current HttpServletRequest
+     * @param name Username of the user logging in.
+     * @param password Password of the user logging in.
+     * @return boolean Returns true if user is logged in, false otherwise.
      */
     public static boolean loginUser(HttpServletRequest request, String name, String password) 
     {        
@@ -282,7 +282,7 @@ public class FrontController extends HttpServlet
     
     /**
      * Invalidates a session.
-     * @param request 
+     * @param request Current HttpServletRequest.
      */
     public static void invalidateSession(HttpServletRequest request)
     {

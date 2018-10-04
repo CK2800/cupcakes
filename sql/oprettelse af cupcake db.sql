@@ -51,7 +51,7 @@ PRIMARY KEY(orderId, productId), -- sammensat primær ngl. istedet for (godt set
 CONSTRAINT fk_lineitems_orders
 FOREIGN KEY(orderId)
 REFERENCES orders(id)
-ON DELETE NO ACTION, -- orders with lineitems can not be deleted.
+ON DELETE CASCADE, -- if an order is deleted, so are its lineitems.
 CONSTRAINT fk_lineitems_products
 FOREIGN KEY(productId)
 REFERENCES products(id)

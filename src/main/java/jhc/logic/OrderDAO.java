@@ -28,7 +28,11 @@ public class OrderDAO
     private static final String GET_USER_ORDERS_SQL = "SELECT id FROM orders WHERE userId = ?;";
     private static Connection connection;
     
-
+    /**
+     * Get orders belonging to a specific user.
+     * @param user UserDTO object
+     * @return ArrayList of OrderDTO objects. If the user has no orders, the list will be empty.
+     */
     public static ArrayList<OrderDTO> getUserOrders(UserDTO user)
     {
         ArrayList<OrderDTO> orders = new ArrayList<OrderDTO>();
@@ -51,20 +55,28 @@ public class OrderDAO
         return orders;
     }
     
+    /**
+     * Maps the current row from a ResultSet to an OrderDTO object.
+     * @param rs ResultSet 
+     * @return OrderDTO object
+     * @throws Exception If the ResultSet fails to read values from the specified columns, an Exception will be thrown.
+     */
     private static OrderDTO MapOrder(ResultSet rs) throws Exception
     {
         return new OrderDTO(rs.getInt("id"), rs.getInt("userId"));
     }
-//    public static ArrayList<OrderDTO> getUserOrders(UserDTO user)
-//    {
-//        
+//    Q&D test
+//    public static void main(String[] args) {
+//        createOrder(new UserDTO(1, "Jesper", "Petersen", 0), new ArrayList());
+//
 //    }
     
-    public static void main(String[] args) {
-        createOrder(new UserDTO(1, "Jesper", "Petersen", 0), new ArrayList());
-
-    }
-    
+    /**
+     * Creates a new order in the database and its lineitems.
+     * @param user UserDTO object of the user making the order.
+     * @param lineItems ArrayList of LineItemDTO objects for the order.
+     * @return boolean, true if order and corresponding lineitems were created, false otherwise.
+     */
     public static boolean createOrder(UserDTO user, ArrayList<LineItemDTO> lineItems)
     {
         boolean created = false;

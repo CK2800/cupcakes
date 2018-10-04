@@ -15,20 +15,12 @@ import jhc.data.UserDTO;
  * @author Claus
  */
 public class Utils
-{
-    public static class CartTotals
-    {
-        private int count;
-        private float total;
-        public int getCount(){return count;}
-        public float getTotal(){return total;}
-        public CartTotals(int count, float total)
-        {
-            this.count = count;
-            this.total = total;
-        }
-    }
-    
+{   
+    /**
+     * Calculates totals of the virtual shopping cart from the provided collection of line items.
+     * @param lineItems ArrayList of LineItemDTO objects.
+     * @return CartTotals
+     */
     public static CartTotals calculateCartTotals(ArrayList<LineItemDTO> lineItems)
     {
         // Calculate total of cart.
@@ -46,6 +38,12 @@ public class Utils
         return new CartTotals(count, total);        
     }
     
+    /**
+     * Builds a HTML anchor element with 
+     * @param lineItems
+     * @param user
+     * @return 
+     */
     public static String cartDetails(ArrayList<LineItemDTO> lineItems, UserDTO user)
     {        
         String cartHTML = (user != null) ? user.getUsername() + " " : "";
