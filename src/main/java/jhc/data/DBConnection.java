@@ -15,9 +15,21 @@ import java.sql.SQLException;
  */
 public class DBConnection {
     
+        /**
+         * Class of the database driver.
+         */
 	public final static String DB_DRIVER_CLASS = "com.mysql.jdbc.Driver";
+        /**
+         * URL of the database.
+         */
 	public final static String DB_URL = "jdbc:mysql://142.93.174.238:3306/cupcakes";
+        /**
+         * Username for the database.
+         */
 	public final static String DB_USERNAME = "cupcakeUser";
+        /**
+         * Password for the database.
+         */
 	public final static String DB_PASSWORD = "Cupcake@2018";
 
         /**

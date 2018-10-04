@@ -23,9 +23,21 @@ import jhc.data.UserDTO;
  */
 public class OrderDAO
 {
+    /**
+     * SQL for inserting a line item into the database.
+     */
     private static final String INSERT_LINE_ITEM_SQL = "INSERT INTO lineitems(orderId, productId, qty, price) VALUES(?,?,?,?);";
+    /**
+     * SQL for creating an order in the database.
+     */
     private static final String CREATE_ORDER_SQL = "INSERT INTO orders(userId) VALUES(?);";
+    /**
+     * SQL for getting orders for a specific user.
+     */
     private static final String GET_USER_ORDERS_SQL = "SELECT id FROM orders WHERE userId = ?;";
+    /**
+     * The database connection.
+     */
     private static Connection connection;
     
     /**

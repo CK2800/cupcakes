@@ -20,21 +20,50 @@ import jhc.logic.ProductDAO;
 import jhc.logic.UserDAO;
 
 /**
- *
+ * The FrontController is responsible for distributing HTTP requests 
+ * based on the origin parameter of the request.
+ * The origin parameter can be included in the request as a query string 
+ * parameter (GET) or a parameter within a HTML form element (POST).
  * @author Claus
+ * 
  */
 public class FrontController extends HttpServlet 
 {
-    public static final String INVOICE = "invoiceDetails";
-    public static final String CREATE_RECIPE = "createRecipe";
+    /**
+     * An invoice is requested.
+     */
+    public static final String INVOICE = "invoiceDetails"; 
+    /**
+     * Add items to the basket.
+     */
     public static final String ADD_TO_BASKET = "addToBasket";
-    public static final String EDIT_RECIPE = "editRecipe";
+    /**
+     * An order is to be created.
+     */
     public static final String CREATE_ORDER = "createOrder";
+    /**
+     * A user is to be created.
+     */
     public static final String CREATE_USER = "createUser";
+    /**
+     * The user wants to proceed to checkout.
+     */
     public static final String CHECKOUT = "checkout";
+    /**
+     * A user wants to log in with provided credentials.
+     */
     public static final String LOGIN = "login";
+    /**
+     * A user wants to log out.
+     */
     public static final String LOGOUT = "logout";
+    /**
+     * Specifying the POST method.
+     */
     public static final String POST = "post";
+    /**
+     * Specifying the GET method.
+     */
     public static final String GET = "get";
 
     /**
