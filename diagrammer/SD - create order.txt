@@ -1,23 +1,36 @@
-@startuml
-
-title "Create order - Sequence Diagram"
-
-actor User
-boundary "Cart.jsp" as GUI
-control "FrontController" as FC
-entity OrderDAO as oDAO
-entity DBConnection as DBC
-database cupcakes
-
-User -> GUI : [Click] Continue to checkout
-GUI -> FC : ProcessRequest
-FC -> FC : user = Session.getAttribute("userDTO")
-FC -> FC : lineItems = Session.getAttribute("lineItems")
-FC -> oDAO : createOrder(user, lineItems)
-oDAO -> DBC : conn = DBConnection.getConnection()
-DBC -> DBC : pstm = conn.prepareStatement(CREATE_ORDER_SQL)
-DBC -> DBC : pstm.setInt(1, user.getId())
-DBC -> DBC : pstm.executeUpdate()
-
-
-@enduml
+    @startuml
+    
+    title "Create order - Sequence Diagram"
+    
+    actor User
+    boundary "index.jsp" as GUI1
+    boundary "Cart.jsp" as GUI
+    boundary "orders.jsp" as GUI2
+    control "FrontController" as FC
+    entity OrderDAO as oDAO
+    entity DBConnection as DBC
+    
+    User -> GUI1 : [Click] Bestil
+    GUI1 -> GUI
+    alt buy more
+        User -> GUI : [Click] Tilføj flere varer
+        GUI -> GUI1
+    else checkout
+        User -> GUI : [Click] Continue to checkout
+        GUI -> FC : ProcessRequest
+        FC -> FC : user = Session.getAttribute("userDTO")
+        FC -> FC : lineItems = Session.getAttribute("lineItems")
+        FC -> oDAO : createOrder(user, lineItems)
+        oDAO -> DBC : conn = DBConnection.getConnection()
+        oDAO -> oDAO : pstm = conn.prepareStatement(CREATE_ORDER_SQL)
+        oDAO -> oDAO : pstm.executeUpdate()
+        note right : LineItems are created the same way
+        alt Order creation success
+            oDAO -> FC : boolean [true]
+            FC -> GUI2
+        else Order creation failure
+            oDAO -> FC : boolean [false]
+            FC -> GUI
+        end
+    end
+    @enduml
