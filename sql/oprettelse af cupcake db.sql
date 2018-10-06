@@ -17,7 +17,7 @@ id int PRIMARY KEY AUTO_INCREMENT,
 CREATE TABLE users(
 id int PRIMARY KEY AUTO_INCREMENT,
 username VARCHAR(30) NOT NULL UNIQUE, 
-`password` VARCHAR(256) NOT NULL, -- så vi kan kryptere med sha2/salt.
+`password` VARCHAR(64) NOT NULL, -- så vi kan kryptere med sha2/salt - 256 bits/4 bits hex = 64 chars.
 balance DECIMAL(13,2) NOT NULL DEFAULT 0
 );
 

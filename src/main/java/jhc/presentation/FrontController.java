@@ -148,47 +148,7 @@ public class FrontController extends HttpServlet
                 }
                 break;
 
-                case CREATE_RECIPE: {
-                    // Check for logged in user.
-                    if (userIsAuthenticated(request))     
-                    {
-                        if (method.equals(GET))
-                            request.getRequestDispatcher("createRecipe.jsp").forward(request, response);
-                        else // method is POST, user creates recipe now.
-                        {
-                            if (ProductDAO.createRecipe(Integer.parseInt(request.getParameter("userId")), request.getParameter("headline"), request.getParameter("instructions"), request.getParameter("ingredients")))
-                            {
-                                // Recipe was created, forward request to index.jsp to reflect changes.
-                                response.sendRedirect("index.jsp");
-                                //request.getRequestDispatcher("index.jsp").sendRedirect(request, response);                                
-                            }
-                            else // Show create recipe form again.
-                            {          
-                                request.setAttribute("errorMessage", "Recipe creation failed, please try again.");
-                                request.getRequestDispatcher("createRecipe.jsp").forward(request, response);
-                            }
-                        }
-                    }
-                    else // No user logged in, forward to login page.
-                    {                        
-                        invalidateSession(request);
-                        request.getRequestDispatcher("login.jsp").forward(request, response);
-                    }
-                        
-                }
-                break;
-
-                case EDIT_RECIPE: {
-                    // Check for logged in user.
-                    if(userIsAuthenticated(request))
-                        request.getRequestDispatcher("editRecipe.jsp").forward(request, response);
-                    else // No user logged in, forward to login page.
-                    {
-                        invalidateSession(request);                    
-                        request.getRequestDispatcher("login.jsp").forward(request, response);
-                    }
-                }
-                break;
+                
                 case LOGOUT:
                 {
                     // Invalidate the session.

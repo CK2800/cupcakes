@@ -11,7 +11,7 @@ import java.sql.SQLException;
 /**
  *
  * @author Claus
- * DBConnection facilitates an easy-to-configure access to our database.
+ * DBConnection facilitates an easy-to-configure access to a database.
  */
 public class DBConnection {
     
