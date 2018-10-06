@@ -5,11 +5,9 @@ USE cupcakes;
 
 DROP TABLE IF EXISTS lineitems;
 DROP TABLE IF EXISTS orders;
-DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS bottoms;
 DROP TABLE IF EXISTS toppings;
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS producttypes;
 
 
 CREATE TABLE users(
@@ -46,7 +44,7 @@ toppingId int,
 bottomId int,
 qty int NOT NULL,
 price DECIMAL(13,2) NOT NULL,
-PRIMARY KEY(orderId, toppingId, bottomId), -- sammensat primær ngl. istedet for (godt set, Jesper).
+PRIMARY KEY(orderId, toppingId, bottomId), -- sammensat primær ngl.
 CONSTRAINT fk_lineitems_orders
 FOREIGN KEY(orderId)
 REFERENCES orders(id)

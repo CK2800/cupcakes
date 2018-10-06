@@ -1,16 +1,22 @@
 @startuml
 
 title Cupcake DCD
-object product{
+object cupcake{
     id : Int
     name : String
     price : Float
 }
 
-object producttype{
+object bottom{
     id : Int
-    type : String
+    name : String
 }
+
+object topping{
+    id: Int
+    name : String
+}
+
 object customer{
     id : Int
     username : String
@@ -24,9 +30,8 @@ object order{
 
 
 
-order "m" *-- "n" product : consists-of >
+order "m" *-- "n" cupcake : consists-of >
 order "m " *-- "1" customer: is-placed-by >
-product "0..m" o-- "1" producttype : is-of-type >
-
-
+cupcake "0..m" o-- "1" topping : is-composed-of >
+cupcake "0..m" o-- "1" bottom : is-composed-of >
 @enduml
