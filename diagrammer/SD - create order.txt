@@ -3,9 +3,11 @@
     title "Create order - Sequence Diagram"
     
     actor User
+    
     boundary "index.jsp" as GUI1
     boundary "Cart.jsp" as GUI
     boundary "orders.jsp" as GUI2
+    
     control "FrontController" as FC
     entity OrderDAO as oDAO
     entity DBConnection as DBC
@@ -17,20 +19,21 @@
         GUI -> GUI1
     else checkout
         User -> GUI : [Click] Continue to checkout
-        GUI -> FC : ProcessRequest
-        FC -> FC : user = Session.getAttribute("userDTO")
-        FC -> FC : lineItems = Session.getAttribute("lineItems")
+        GUI -> FC : ProcessRequest(...)
+        FC -> FC : user = Session.getAttribute(...)
+        FC -> FC : lineItems = Session.getAttribute(...)
         FC -> oDAO : createOrder(user, lineItems)
-        oDAO -> DBC : conn = DBConnection.getConnection()
-        oDAO -> oDAO : pstm = conn.prepareStatement(CREATE_ORDER_SQL)
+        oDAO -> DBC : conn = getConnection()
+        oDAO <-- DBC : Connection
+        oDAO -> oDAO : pstm = conn.prepareStatement(...)
         oDAO -> oDAO : pstm.executeUpdate()
         note right : LineItems are created the same way
         alt Order creation success
-            oDAO -> FC : boolean [true]
-            FC -> GUI2
+            FC <-- oDAO : boolean [true]
+            GUI2 <- FC
         else Order creation failure
-            oDAO -> FC : boolean [false]
-            FC -> GUI
+            FC <-- oDAO : boolean [false]
+            GUI <- FC
         end
     end
     @enduml
