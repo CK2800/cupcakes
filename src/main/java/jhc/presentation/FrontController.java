@@ -113,8 +113,8 @@ public class FrontController extends HttpServlet
                     
                     boolean bottomInSession = false, toppingInSession = false;
                     
-                    ProductDTO bottom = ProductDAO.getSingleProduct(bottomId);
-                    ProductDTO topping = ProductDAO.getSingleProduct(toppingId);
+                    ProductDTO bottom = ProductDAO.getSingleProduct(bottomId, ProductDAO.BOTTOMS);
+                    ProductDTO topping = ProductDAO.getSingleProduct(toppingId, ProductDAO.TOPPINGS);
                     
                     HttpSession session = request.getSession();
                     

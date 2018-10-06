@@ -21,41 +21,49 @@ import jhc.presentation.FrontController;
  */
 public class ProductDAO {
     
+    public static final String BOTTOMS = "bottoms";
+    public static final String TOPPINGS = "toppings";
+    
     private static Connection connection;
     
-    // SQL til forespørgsel på enkelt Product baseret på id
-    final static String SINGLE_PRODUCT_SQL = "SELECT p.id, p.producttypeId, p.name, p.price " +
-                         "FROM products p WHERE p.id = ?";
+    // SQL til forespørgsel på enkelt Product baseret på id og type
+    final static String SINGLE_PRODUCT_SQL = "SELECT id, name, price FROM $TABEL$ WHERE id = ?";
     
-    final static String PRODUCTS_OF_TYPE_SQL = "SELECT p.id, p.producttypeId, p.name, p.price " +
-                        "FROM products p WHERE p.producttypeId = ?";
+    final static String PRODUCTS_OF_TYPE_SQL = "SELECT id, name, price FROM $TABLE$";
                          
            
-    public static ArrayList<ProductDTO> getProductsOfType(int producttypeId)
+    public static ArrayList<ProductDTO> getProductsOfType(String type)
     {
+        
         ArrayList<ProductDTO> products = new ArrayList<ProductDTO>();
         try
         {
             connection = DBConnection.getConnection();
             // try to get products.
-            PreparedStatement pstm = connection.prepareStatement(PRODUCTS_OF_TYPE_SQL);
-            pstm.setInt(1, producttypeId);
             
+            PreparedStatement pstm = connection.prepareStatement(PRODUCTS_OF_TYPE_SQL.replace("$TABLE$", type));            
+                        
             try(ResultSet rs = pstm.executeQuery();)
             {
                 while(rs.next())
-                    products.add(mapProduct(rs));
+                    products.add(mapProduct(rs, type));
             }
         }
         catch(Exception e)
         {
-            System.out.println("ProductDTO.getProductsOfType(int): " + e.getMessage() );
+            System.out.println("ProductDAO.getProductsOfType(String): " + e.getMessage() );
         } 
         return products;
     }
     
     
-    public static ProductDTO getSingleProduct(int productId)
+    /**
+     * Henter enkelt produkt af angivet type med angivet id.
+     * @param productId Produktets id.
+     * @param type Produktets type, BOTTOM eller TOPPING.
+     * @return ProductDTO hvis produktet findes, ellers null.
+     */
+    public static ProductDTO getSingleProduct(int productId, String type)
     {
         ProductDTO productDTO = null;        
                         
@@ -64,7 +72,7 @@ public class ProductDAO {
             // make connection.
             connection = DBConnection.getConnection();
             // Forsøg at hente recipe.
-            PreparedStatement pstm = connection.prepareStatement(SINGLE_PRODUCT_SQL);
+            PreparedStatement pstm = connection.prepareStatement(SINGLE_PRODUCT_SQL.replace("$TABLE$", type));            
             pstm.setInt(1, productId);
 
             // try with ressources.
@@ -73,7 +81,7 @@ public class ProductDAO {
                 
                 if (rs.next()) // Kun 1 record pga SUM/COUNT i sql.
                 {
-                    productDTO = mapProduct(rs);                    
+                    productDTO = mapProduct(rs, type);                    
                 }                                                
             }
         }
@@ -88,14 +96,15 @@ public class ProductDAO {
     /**
      * Maps a product from resultset to ProductDTO.     
      * @param rs
+     * @param type
      * @return ProductDTO object or null if ResultSet row is empty.
      * @throws Exception 
      */
-    private static ProductDTO mapProduct(ResultSet rs) throws Exception
+    private static ProductDTO mapProduct(ResultSet rs, String type) throws Exception
     {
         ProductDTO productDTO = new ProductDTO(
                             rs.getInt("id"),
-                            rs.getInt("producttypeId"),
+                            type,
                             rs.getString("name"),
                             rs.getFloat("price")
                             );
