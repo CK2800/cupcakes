@@ -105,12 +105,13 @@ public class FrontController extends HttpServlet
                 }
                 break;
                 case ADD_TO_BASKET:
-                {
-                    
+                {                    
                     // find selected bottom and topping as well as qty.
                     int bottomId = Integer.parseInt(request.getParameter("bottoms"));                    
                     int toppingId = Integer.parseInt(request.getParameter("toppings"));
                     int qty = Integer.parseInt(request.getParameter("qty"));
+                    
+                    boolean bottomInSession = false, toppingInSession = false;
                     
                     ProductDTO bottom = ProductDAO.getSingleProduct(bottomId);
                     ProductDTO topping = ProductDAO.getSingleProduct(toppingId);
@@ -122,10 +123,26 @@ public class FrontController extends HttpServlet
                         lineItems = new ArrayList<LineItemDTO>();
                     
                     // See if same product has already been ordered in this session.
-                    //for(LineItemDTO lineItem)
+                    for(LineItemDTO lineItem : lineItems)
+                    {
+                        int pId = lineItem.getProductId();
+                        if (pId == bottomId) // bottom is in basket already
+                        {
+                            bottomInSession = true;
+                            lineItem.addQty(qty);
+                        }
+                        else if(pId == toppingId) // topping is in basket already  
+                        {
+                            toppingInSession = true;
+                            lineItem.addQty(qty);                        
+                        }
+                    }
                     
-                    lineItems.add(new LineItemDTO(0, bottomId, bottom.getName(), qty, bottom.getPrice()));
-                    lineItems.add(new LineItemDTO(0, toppingId, topping.getName(), qty, topping.getPrice()));
+                    if (!bottomInSession)                                                          
+                        lineItems.add(new LineItemDTO(0, bottomId, bottom.getName(), qty, bottom.getPrice()));
+                    if (!toppingInSession)
+                        lineItems.add(new LineItemDTO(0, toppingId, topping.getName(), qty, topping.getPrice()));
+                    
                     
                     session.setAttribute("lineItems", lineItems);
                     

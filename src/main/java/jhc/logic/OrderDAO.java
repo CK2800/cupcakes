@@ -81,8 +81,7 @@ public class OrderDAO
 //    public static void main(String[] args) {
 //        createOrder(new UserDTO(1, "Jesper", "Petersen", 0), new ArrayList());
 //
-//    }
-    
+//    }      
     /**
      * Creates a new order in the database and its lineitems.
      * @param user UserDTO object of the user making the order.
@@ -92,6 +91,7 @@ public class OrderDAO
     public static boolean createOrder(UserDTO user, ArrayList<LineItemDTO> lineItems)
     {
         boolean created = false;
+       
         try
         {
             connection = DBConnection.getConnection();

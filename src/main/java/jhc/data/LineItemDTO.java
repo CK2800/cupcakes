@@ -44,5 +44,6 @@ public class LineItemDTO
     public String getProductName(){return productName;}
     public int getQty(){return qty;}
     public float getPrice(){return price;}
+    public void addQty(int qty){this.qty += qty;}
     
 }

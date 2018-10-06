@@ -46,7 +46,7 @@ public class Utils
      */
     public static String cartDetails(ArrayList<LineItemDTO> lineItems, UserDTO user)
     {        
-        String cartHTML = (user != null) ? user.getUsername() + " " : "";
+        String cartHTML = (user != null) ? user.getUsername() + " " : "Anonymous user ";
         float total = 0;
         int count = 0;
         
