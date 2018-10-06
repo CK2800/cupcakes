@@ -1,6 +1,6 @@
 @startuml
 
-title Cupcake DCD v1
+title Cupcake DCD
 object product{
     id : Int
     name : String
@@ -22,16 +22,11 @@ object order{
     id : Int
 }
 
-object lineitems{
-    id : Int
-    qty : Int
-    price : Float
-}
 
 
-order "1" *-- "m" product : consists-of >
+order "m" *-- "n" product : consists-of >
 order "m " *-- "1" customer: is-placed-by >
 product "0..m" o-- "1" producttype : is-of-type >
-lineitems "m" --* "1" order : < has
+
 
 @enduml
