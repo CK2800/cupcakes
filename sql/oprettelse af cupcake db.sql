@@ -57,7 +57,7 @@ REFERENCES toppings(id)
 ON DELETE NO ACTION, -- toppings referenced by lineitems can not be deleted.
 CONSTRAINT fk_lineitems_bottoms
 FOREIGN KEY(bottomId)
-REFERENCES toppings(id)
+REFERENCES bottoms(id)
 ON DELETE NO ACTION -- bottoms referenced by lineitems can not be deleted.
 );
 

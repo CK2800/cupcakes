@@ -25,4 +25,4 @@ INSERT INTO orders(userId) VALUES(3);
 -- line items, order 1
 INSERT INTO lineitems(orderId, toppingId, bottomId, qty, price) VALUES(1, 1, 2, 2, 10);
 INSERT INTO lineitems(orderId, toppingId, bottomId, qty, price) VALUES(1, 4, 3, 1, 12);
-INSERT INTO lineitems(orderId, toppingId, bottomId, qty, price) VALUES(1, 5, 8, 1, 15);
+INSERT INTO lineitems(orderId, toppingId, bottomId, qty, price) VALUES(1, 8, 5, 1, 15);
