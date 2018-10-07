@@ -111,7 +111,7 @@ public class FrontController extends HttpServlet
                     int toppingId = Integer.parseInt(request.getParameter("toppings"));
                     int qty = Integer.parseInt(request.getParameter("qty"));
                     
-                    boolean bottomInSession = false, toppingInSession = false;
+                    boolean cupcakeInSession = false;
                     
                     ProductDTO bottom = ProductDAO.getSingleProduct(bottomId, ProductDAO.BOTTOMS);
                     ProductDTO topping = ProductDAO.getSingleProduct(toppingId, ProductDAO.TOPPINGS);
@@ -122,27 +122,40 @@ public class FrontController extends HttpServlet
                     if (lineItems == null)
                         lineItems = new ArrayList<LineItemDTO>();
                     
-                    // See if same product has already been ordered in this session.
+                    // See if same cupcake has been ordered already.
                     for(LineItemDTO lineItem : lineItems)
                     {
-                        int pId = lineItem.getProductId();
-                        if (pId == bottomId) // bottom is in basket already
+                        if (lineItem.getBottomId() == bottomId && lineItem.getToppingId() == toppingId)
                         {
-                            bottomInSession = true;
                             lineItem.addQty(qty);
-                        }
-                        else if(pId == toppingId) // topping is in basket already  
-                        {
-                            toppingInSession = true;
-                            lineItem.addQty(qty);                        
+                            // Set flag to indicate that no new lineitem must be created.
+                            cupcakeInSession = true;
                         }
                     }
-                    
-                    if (!bottomInSession)                                                          
-                        lineItems.add(new LineItemDTO(0, bottomId, bottom.getName(), qty, bottom.getPrice()));
-                    if (!toppingInSession)
-                        lineItems.add(new LineItemDTO(0, toppingId, topping.getName(), qty, topping.getPrice()));
-                    
+                    // See if same product has already been ordered in this session.
+//                    for(LineItemDTO lineItem : lineItems)
+//                    {
+//                        int pId = lineItem.getProductId();
+//                        if (pId == bottomId) // bottom is in basket already
+//                        {
+//                            bottomInSession = true;
+//                            lineItem.addQty(qty);
+//                        }
+//                        else if(pId == toppingId) // topping is in basket already  
+//                        {
+//                            toppingInSession = true;
+//                            lineItem.addQty(qty);                        
+//                        }
+//                    }
+
+                    if (!cupcakeInSession)
+                        lineItems.add(new LineItemDTO(toppingId, bottomId, topping.getName(), bottom.getName(), qty, bottom.getPrice() + topping.getPrice()));
+
+//                    if (!bottomInSession)                                                          
+//                        lineItems.add(new LineItemDTO(0, bottomId, bottom.getName(), qty, bottom.getPrice()));
+//                    if (!toppingInSession)
+//                        lineItems.add(new LineItemDTO(0, toppingId, topping.getName(), qty, topping.getPrice()));
+//                    
                     
                     session.setAttribute("lineItems", lineItems);
                     

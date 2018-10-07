@@ -27,7 +27,7 @@ public class ProductDAO {
     private static Connection connection;
     
     // SQL til forespørgsel på enkelt Product baseret på id og type
-    final static String SINGLE_PRODUCT_SQL = "SELECT id, name, price FROM $TABEL$ WHERE id = ?";
+    final static String SINGLE_PRODUCT_SQL = "SELECT id, name, price FROM $TABLE$ WHERE id = ?";
     
     final static String PRODUCTS_OF_TYPE_SQL = "SELECT id, name, price FROM $TABLE$";
                          
@@ -56,7 +56,11 @@ public class ProductDAO {
         return products;
     }
     
-    
+    public static void main(String[] args)
+    {
+        ProductDTO product = ProductDAO.getSingleProduct(1, BOTTOMS);
+        System.out.println("Fandt " + product.getName());
+    }
     /**
      * Henter enkelt produkt af angivet type med angivet id.
      * @param productId Produktets id.
@@ -71,7 +75,7 @@ public class ProductDAO {
         {
             // make connection.
             connection = DBConnection.getConnection();
-            // Forsøg at hente recipe.
+            // Forsøg at hente recipe.            
             PreparedStatement pstm = connection.prepareStatement(SINGLE_PRODUCT_SQL.replace("$TABLE$", type));            
             pstm.setInt(1, productId);
 

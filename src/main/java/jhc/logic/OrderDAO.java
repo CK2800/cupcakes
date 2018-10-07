@@ -26,7 +26,7 @@ public class OrderDAO
     /**
      * SQL for inserting a line item into the database.
      */
-    private static final String INSERT_LINE_ITEM_SQL = "INSERT INTO lineitems(orderId, productId, qty, price) VALUES(?,?,?,?);";
+    private static final String INSERT_LINE_ITEM_SQL = "INSERT INTO lineitems(orderId, toppingId, bottomId, qty, price) VALUES(?,?,?,?,?);";
     /**
      * SQL for creating an order in the database.
      */
@@ -108,7 +108,8 @@ public class OrderDAO
             {
                 pstm = connection.prepareStatement(INSERT_LINE_ITEM_SQL);
                 pstm.setInt(1, orderId);
-                pstm.setInt(2, lineItem.getProductId());
+                pstm.setInt(2, lineItem.getToppingId());
+                pstm.setInt(2, lineItem.getBottomId());
                 pstm.setInt(3, lineItem.getQty());
                 pstm.setFloat(4, lineItem.getPrice());
                 pstm.executeUpdate();

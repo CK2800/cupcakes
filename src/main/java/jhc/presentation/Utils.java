@@ -55,7 +55,7 @@ public class Utils
         
         if(cartTotals.getCount() > 0)
         {
-            cartHTML += "<a href='/cupcakes/FrontController?origin=" + FrontController.CHECKOUT + "'>" + cartTotals.getCount() + " cupcake parts in basket, total: " + cartTotals.getTotal() + ",- kr (DKK)</a>";
+            cartHTML += "<a href='/cupcakes/FrontController?origin=" + FrontController.CHECKOUT + "'>" + cartTotals.getCount() + " cupcakes in basket, total: " + cartTotals.getTotal() + ",- kr (DKK)</a>";
         }
         else
         {
@@ -71,7 +71,7 @@ public class Utils
         for (LineItemDTO lineItem : lineItems)
         {
             listitems += "<li class='list-group-item d-flex justify-content-between lh-condensed'><div>" +
-                         "<h6 class='my-0'>" + lineItem.getProductName() + "</h6>" +
+                         "<h6 class='my-0'>" + lineItem.toString() + "</h6>" +
                          //<small class="text-muted">Brief description</small>
                         "</div>" +
                         "<span class='text-muted'>" + lineItem.getQty() * lineItem.getPrice() + "</span></li>";
