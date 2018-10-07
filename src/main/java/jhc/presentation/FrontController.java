@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import jhc.data.LineItemDTO;
+import jhc.data.OrderDTO;
 import jhc.data.ProductDTO;
 import jhc.data.UserDTO;
 import jhc.logic.OrderDAO;
@@ -46,6 +47,14 @@ public class FrontController extends HttpServlet
      */
     public static final String CREATE_USER = "createUser";
     /**
+     * Display a list of orders for the logged in user.
+     */
+    public static final String SHOW_ORDERS = "showOrders";
+    /**
+     * Display invoice for a selected order.
+     */
+    public static final String SHOW_INVOICE = "showInvoice";
+    /**
      * The user wants to proceed to checkout.
      */
     public static final String CHECKOUT = "checkout";
@@ -66,6 +75,7 @@ public class FrontController extends HttpServlet
      */
     public static final String GET = "get";
 
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -83,6 +93,37 @@ public class FrontController extends HttpServlet
         {
             switch (origin) 
             {
+                
+                case SHOW_INVOICE:
+                {
+                    // validate that order belongs to user.
+                    UserDTO user = (UserDTO)request.getSession().getAttribute("userDTO");
+                    OrderDTO order = OrderDAO.getOrder(Integer.parseInt(request.getParameter("orderId")));
+                    if (order.getUserId() == user.getId()) // user has the order.
+                    {                     
+                        // get lineitems of order.
+                        ArrayList<LineItemDTO> lineItems = OrderDAO.getLineItems(order.getId());
+                        // set lineitems on order.
+                        order.setLineItems(lineItems);
+                           // set order in request.
+                        request.setAttribute("orderDTO", order);
+                        request.getRequestDispatcher("customerspage/invoiceDetails.jsp").forward(request, response); 
+                    }
+                    else
+                        request.getRequestDispatcher("index.jsp").forward(request, response);
+                    
+                }
+                break;
+                
+                case SHOW_ORDERS:
+                {
+                    UserDTO user = (UserDTO)request.getSession().getAttribute("userDTO");
+                    if (user != null)
+                        request.getRequestDispatcher("customerspage/orders.jsp").forward(request, response); 
+                    else
+                        request.getRequestDispatcher("login.jsp").forward(request, response);
+                }
+                break;
                 case CREATE_ORDER:
                 {
                     // Get session user and cart.
@@ -90,7 +131,7 @@ public class FrontController extends HttpServlet
                     UserDTO user = (UserDTO)request.getSession().getAttribute("userDTO");
                     if (user != null && lineItems != null && !lineItems.isEmpty())
                     {
-                        if (OrderDAO.createOrder(user, lineItems))
+                        if (OrderDAO.createOrder(user.getId(), lineItems))
                         {
                             // remove lineitems from session
                             request.getSession().setAttribute("lineItems", null);
@@ -111,10 +152,10 @@ public class FrontController extends HttpServlet
                     int toppingId = Integer.parseInt(request.getParameter("toppings"));
                     int qty = Integer.parseInt(request.getParameter("qty"));
                     
-                    boolean bottomInSession = false, toppingInSession = false;
+                    boolean cupcakeInSession = false;
                     
-                    ProductDTO bottom = ProductDAO.getSingleProduct(bottomId);
-                    ProductDTO topping = ProductDAO.getSingleProduct(toppingId);
+                    ProductDTO bottom = ProductDAO.getSingleProduct(bottomId, ProductDAO.BOTTOMS);
+                    ProductDTO topping = ProductDAO.getSingleProduct(toppingId, ProductDAO.TOPPINGS);
                     
                     HttpSession session = request.getSession();
                     
@@ -122,27 +163,40 @@ public class FrontController extends HttpServlet
                     if (lineItems == null)
                         lineItems = new ArrayList<LineItemDTO>();
                     
-                    // See if same product has already been ordered in this session.
+                    // See if same cupcake has been ordered already.
                     for(LineItemDTO lineItem : lineItems)
                     {
-                        int pId = lineItem.getProductId();
-                        if (pId == bottomId) // bottom is in basket already
+                        if (lineItem.getBottomId() == bottomId && lineItem.getToppingId() == toppingId)
                         {
-                            bottomInSession = true;
                             lineItem.addQty(qty);
-                        }
-                        else if(pId == toppingId) // topping is in basket already  
-                        {
-                            toppingInSession = true;
-                            lineItem.addQty(qty);                        
+                            // Set flag to indicate that no new lineitem must be created.
+                            cupcakeInSession = true;
                         }
                     }
-                    
-                    if (!bottomInSession)                                                          
-                        lineItems.add(new LineItemDTO(0, bottomId, bottom.getName(), qty, bottom.getPrice()));
-                    if (!toppingInSession)
-                        lineItems.add(new LineItemDTO(0, toppingId, topping.getName(), qty, topping.getPrice()));
-                    
+                    // See if same product has already been ordered in this session.
+//                    for(LineItemDTO lineItem : lineItems)
+//                    {
+//                        int pId = lineItem.getProductId();
+//                        if (pId == bottomId) // bottom is in basket already
+//                        {
+//                            bottomInSession = true;
+//                            lineItem.addQty(qty);
+//                        }
+//                        else if(pId == toppingId) // topping is in basket already  
+//                        {
+//                            toppingInSession = true;
+//                            lineItem.addQty(qty);                        
+//                        }
+//                    }
+
+                    if (!cupcakeInSession)
+                        lineItems.add(new LineItemDTO(toppingId, bottomId, topping.getName(), bottom.getName(), qty, bottom.getPrice() + topping.getPrice()));
+
+//                    if (!bottomInSession)                                                          
+//                        lineItems.add(new LineItemDTO(0, bottomId, bottom.getName(), qty, bottom.getPrice()));
+//                    if (!toppingInSession)
+//                        lineItems.add(new LineItemDTO(0, toppingId, topping.getName(), qty, topping.getPrice()));
+//                    
                     
                     session.setAttribute("lineItems", lineItems);
                     
@@ -198,13 +252,15 @@ public class FrontController extends HttpServlet
                 }
                 break;
 
-                default: {
-                    // no forwarding, will be done when control leaves switch. 
+                default: 
+                {
+                    // origin is invalid, redirect to front page.
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
                 break;
             }
         }
-        else // If no origin, redirect to index.html
+        else // If no origin, redirect to index.jsp
             request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

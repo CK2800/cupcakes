@@ -1,0 +1,24 @@
+-classpath
+'C:/Users/Claus/Documents/NetBeansProjects/cupcakes/target/classes;C:/Users/Claus/.m2/repository/com/google/protobuf/protobuf-java/2.6.0/protobuf-java-2.6.0.jar;C:/Users/Claus/.m2/repository/mysql/mysql-connector-java/8.0.12/mysql-connector-java-8.0.12.jar;C:/Users/Claus/.m2/repository/javax/javaee-web-api/7.0/javaee-web-api-7.0.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'C:/Users/Claus/Documents/NetBeansProjects/cupcakes/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2018. All Rights Reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/Claus/Documents/NetBeansProjects/cupcakes/docs/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'cupcakes 1.0-SNAPSHOT API'
+-linkoffline
+'http://docs.oracle.com/javase/7/docs/api' 'C:/Users/Claus/Documents/NetBeansProjects/cupcakes/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'cupcakes 1.0-SNAPSHOT API'

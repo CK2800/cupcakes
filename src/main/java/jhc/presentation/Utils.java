@@ -8,6 +8,7 @@ package jhc.presentation;
 import java.util.ArrayList;
 import jhc.data.ProductDTO;
 import jhc.data.LineItemDTO;
+import jhc.data.OrderDTO;
 import jhc.data.UserDTO;
 
 /**
@@ -15,7 +16,38 @@ import jhc.data.UserDTO;
  * @author Claus
  */
 public class Utils
-{   
+{  
+    public static String LineItemsAsTable(ArrayList<LineItemDTO> lineItems)
+    {
+        String table = "";
+        for(LineItemDTO item : lineItems)
+        {
+            table += "<tr>";
+            table += "<td>" + item.toString() + "</td>";
+            table += "<td class=\"text-center\">" + item.getPrice() + "</td>";
+            table += "<td class=\"text-center\">" + item.getQty() + "</td>";
+            table += "<td class=\"text-right\">" + item.getPrice() * item.getQty() + "</td>";
+            table += "</tr>";
+        }
+        return table;
+    }
+    
+    public static String OrdersAsHtmlTable(ArrayList<OrderDTO> orders)
+    {
+        String table = "<table class=\"table\">" +
+                       "<thead class=\"thead-dark\">" + 
+                       "<tr><th scope=\"col\">#</th><th scope=\"col\">Id</th></tr>" +
+                       "</thead>" + 
+                       "<tbody>";
+        for(OrderDTO order : orders)
+        {
+            table += "<tr><th scope=\"row\"></th>" +
+                     "<td><a href=FrontController?origin=" + FrontController.SHOW_INVOICE + "&orderId=" + order.getId() + ">" + order.getId() + "</a></td>" + 
+                     "</tr>";
+        }
+        table += "</tbody></table>";
+        return table;
+    }
     /**
      * Calculates totals of the virtual shopping cart from the provided collection of line items.
      * @param lineItems ArrayList of LineItemDTO objects.
@@ -55,7 +87,7 @@ public class Utils
         
         if(cartTotals.getCount() > 0)
         {
-            cartHTML += "<a href='/cupcakes/FrontController?origin=" + FrontController.CHECKOUT + "'>" + cartTotals.getCount() + " cupcake parts in basket, total: " + cartTotals.getTotal() + ",- kr (DKK)</a>";
+            cartHTML += "<a href='/cupcakes/FrontController?origin=" + FrontController.CHECKOUT + "'>" + cartTotals.getCount() + " cupcakes in basket, total: " + cartTotals.getTotal() + ",- kr (DKK)</a>";
         }
         else
         {
@@ -71,7 +103,7 @@ public class Utils
         for (LineItemDTO lineItem : lineItems)
         {
             listitems += "<li class='list-group-item d-flex justify-content-between lh-condensed'><div>" +
-                         "<h6 class='my-0'>" + lineItem.getProductName() + "</h6>" +
+                         "<h6 class='my-0'>" + lineItem.toString() + "</h6>" +
                          //<small class="text-muted">Brief description</small>
                         "</div>" +
                         "<span class='text-muted'>" + lineItem.getQty() * lineItem.getPrice() + "</span></li>";

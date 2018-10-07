@@ -19,8 +19,8 @@
     String aLogout = "<a href='" + request.getContextPath() + "/FrontController?origin=" + FrontController.LOGOUT + "' class='" + bt + "danger'>Log out</a>";
     String aLogin  = "<a href='" + request.getContextPath() + "/FrontController?origin=" + FrontController.LOGIN + "' class='" + bt + "warning'>Log in</a>";
     
-    ArrayList<ProductDTO> bottoms  = ProductDAO.getProductsOfType(1);
-    ArrayList<ProductDTO> toppings = ProductDAO.getProductsOfType(2);
+    ArrayList<ProductDTO> bottoms  = ProductDAO.getProductsOfType(ProductDAO.BOTTOMS);
+    ArrayList<ProductDTO> toppings = ProductDAO.getProductsOfType(ProductDAO.TOPPINGS);
     String bottomsDropDown = Utils.ProductDropDown(bottoms, "bottoms", "bottoms");
     String toppingsDropDown = Utils.ProductDropDown(toppings, "toppings", "toppings");
     UserDTO user = (UserDTO)request.getSession().getAttribute("userDTO");

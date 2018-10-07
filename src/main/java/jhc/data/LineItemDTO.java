@@ -12,38 +12,49 @@ package jhc.data;
 public class LineItemDTO
 {
     private int orderId;
-    private int productId;
-    private String productName;
+    private int toppingId;    
+    private int bottomId;
+    private String toppingName;
+    private String bottomName;
     private int qty;
     private float price;
     
-    public LineItemDTO(int orderId, int productId, String productName, int qty, float price)
+    public LineItemDTO(int orderId, int toppingId, int bottomId, String toppingName, String bottomName, int qty, float price)
     {
         this.orderId = orderId;
-        this.productId = productId;
-        this.productName = productName;
+        this.toppingId = toppingId;
+        this.bottomId = bottomId;                
+        this.toppingName = toppingName;
+        this.bottomName = bottomName;
         this.qty = qty;
         this.price = price;
     }
     
     /**
      * Constructor for line items in cart, that do not have an order id yet.
-     * @param productId
+     * @param toppingId
+     * @param bottomId
+     * @param toppingName
+     * @param bottomName
      * @param qty
      * @param price 
      */
-    public LineItemDTO(int productId, int qty, float price)
+    public LineItemDTO(int toppingId, int bottomId, String toppingName, String bottomName, int qty, float price)
     {
-        this.productId = productId;
+        this.toppingId = toppingId;
+        this.bottomId = bottomId;
+        this.toppingName = toppingName;
+        this.bottomName = bottomName;        
         this.qty = qty;
         this.price = price;
     }
     
     public int getOrderId(){return orderId;}
-    public int getProductId(){return productId;}
-    public String getProductName(){return productName;}
+    public int getToppingId(){return toppingId;}
+    public int getBottomId(){return bottomId;}        
     public int getQty(){return qty;}
     public float getPrice(){return price;}
     public void addQty(int qty){this.qty += qty;}
+    @Override public String toString(){return qty + " " +  toppingName + "/" + bottomName;}
     
 }
