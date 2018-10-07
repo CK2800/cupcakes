@@ -90,7 +90,7 @@ public class FrontController extends HttpServlet
                     UserDTO user = (UserDTO)request.getSession().getAttribute("userDTO");
                     if (user != null && lineItems != null && !lineItems.isEmpty())
                     {
-                        if (OrderDAO.createOrder(user, lineItems))
+                        if (OrderDAO.createOrder(user.getId(), lineItems))
                         {
                             // remove lineitems from session
                             request.getSession().setAttribute("lineItems", null);

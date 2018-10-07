@@ -79,16 +79,20 @@ public class OrderDAO
     }
 //    Q&D test
 //    public static void main(String[] args) {
-//        createOrder(new UserDTO(1, "Jesper", "Petersen", 0), new ArrayList());
+//        ArrayList<LineItemDTO> lineItems = new ArrayList<LineItemDTO>();
+//        lineItems.add(new LineItemDTO(1, 1, "adsf", "asdf", 2, 7.5F));
+//        boolean created = createOrder(3, lineItems);
+//        System.out.println("Ordre oprettet: " + created);
+//        
 //
 //    }      
     /**
      * Creates a new order in the database and its lineitems.
-     * @param user UserDTO object of the user making the order.
+     * @param userId id of logged in user.
      * @param lineItems ArrayList of LineItemDTO objects for the order.
      * @return boolean, true if order and corresponding lineitems were created, false otherwise.
      */
-    public static boolean createOrder(UserDTO user, ArrayList<LineItemDTO> lineItems)
+    public static boolean createOrder(int userId, ArrayList<LineItemDTO> lineItems)
     {
         boolean created = false;
        
@@ -96,7 +100,7 @@ public class OrderDAO
         {
             connection = DBConnection.getConnection();
             PreparedStatement pstm = connection.prepareStatement(CREATE_ORDER_SQL, Statement.RETURN_GENERATED_KEYS);
-            pstm.setInt(1, user.getId());
+            pstm.setInt(1, userId);
             
             // create order.
              pstm.executeUpdate();
@@ -109,9 +113,9 @@ public class OrderDAO
                 pstm = connection.prepareStatement(INSERT_LINE_ITEM_SQL);
                 pstm.setInt(1, orderId);
                 pstm.setInt(2, lineItem.getToppingId());
-                pstm.setInt(2, lineItem.getBottomId());
-                pstm.setInt(3, lineItem.getQty());
-                pstm.setFloat(4, lineItem.getPrice());
+                pstm.setInt(3, lineItem.getBottomId());
+                pstm.setInt(4, lineItem.getQty());
+                pstm.setFloat(5, lineItem.getPrice());
                 pstm.executeUpdate();
             }
             created = true;
