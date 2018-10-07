@@ -8,6 +8,7 @@ package jhc.presentation;
 import java.util.ArrayList;
 import jhc.data.ProductDTO;
 import jhc.data.LineItemDTO;
+import jhc.data.OrderDTO;
 import jhc.data.UserDTO;
 
 /**
@@ -15,7 +16,23 @@ import jhc.data.UserDTO;
  * @author Claus
  */
 public class Utils
-{   
+{  
+    public static String OrdersAsHtmlTable(ArrayList<OrderDTO> orders)
+    {
+        String table = "<table class=\"table\">" +
+                       "<thead class=\"thead-dark\">" + 
+                       "<tr><th scope=\"col\">#</th><th scope=\"col\">Id</th></tr>" +
+                       "</thead>" + 
+                       "<tbody>";
+        for(OrderDTO order : orders)
+        {
+            table += "<tr><th scope=\"row\"></th>" +
+                     "<td>" + order.getId() + "</td>" + 
+                     "</tr>";
+        }
+        table += "</tbody></table>";
+        return table;
+    }
     /**
      * Calculates totals of the virtual shopping cart from the provided collection of line items.
      * @param lineItems ArrayList of LineItemDTO objects.

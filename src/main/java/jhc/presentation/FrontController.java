@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import jhc.data.LineItemDTO;
+import jhc.data.OrderDTO;
 import jhc.data.ProductDTO;
 import jhc.data.UserDTO;
 import jhc.logic.OrderDAO;
@@ -46,6 +47,10 @@ public class FrontController extends HttpServlet
      */
     public static final String CREATE_USER = "createUser";
     /**
+     * Display a list of orders for the logged in user.
+     */
+    public static final String SHOW_ORDERS = "showOrders";
+    /**
      * The user wants to proceed to checkout.
      */
     public static final String CHECKOUT = "checkout";
@@ -66,6 +71,7 @@ public class FrontController extends HttpServlet
      */
     public static final String GET = "get";
 
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -83,6 +89,17 @@ public class FrontController extends HttpServlet
         {
             switch (origin) 
             {
+                case SHOW_ORDERS:
+                {
+                    UserDTO user = (UserDTO)request.getSession().getAttribute("userDTO");
+                    if (user != null)
+                        request.getRequestDispatcher("customerspage/orders.jsp").forward(request, response); 
+                    else
+                        request.getRequestDispatcher("login.jsp").forward(request, response);
+                    
+                    
+                }
+                break;
                 case CREATE_ORDER:
                 {
                     // Get session user and cart.

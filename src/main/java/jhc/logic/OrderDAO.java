@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import jhc.data.DBConnection;
 import jhc.data.LineItemDTO;
 import jhc.data.OrderDTO;
-import jhc.data.UserDTO;
 
 
 /**
@@ -32,9 +31,9 @@ public class OrderDAO
      */
     private static final String CREATE_ORDER_SQL = "INSERT INTO orders(userId) VALUES(?);";
     /**
-     * SQL for getting orders for a specific user.
+     * SQL for getting orders for a specific user ordered by id descending (most recent first).
      */
-    private static final String GET_USER_ORDERS_SQL = "SELECT id FROM orders WHERE userId = ?;";
+    private static final String GET_USER_ORDERS_SQL = "SELECT id, userId FROM orders WHERE userId = ? ORDER BY id DESC;";
     /**
      * The database connection.
      */
