@@ -35,9 +35,80 @@ public class OrderDAO
      */
     private static final String GET_USER_ORDERS_SQL = "SELECT id, userId FROM orders WHERE userId = ? ORDER BY id DESC;";
     /**
+     * SQL for getting a specific order.
+     */
+    private static final String GET_ORDER_SQL = "SELECT id, userId FROM orders WHERE id = ?;";
+    /**
+     * SQL for getting lineitems for an order.
+     */
+    private static final String GET_LINEITEMS_SQL = "SELECT l.orderId, l.toppingId, l.bottomId, b.name as bottomName, t.name as toppingName, l.qty, l.price " + 
+                                                    "FROM lineitems l " +
+                                                    "INNER JOIN toppings t ON l.toppingId = t.id " +
+                                                    "INNER JOIN bottoms b ON l.bottomId = b.id " +
+                                                    "WHERE l.orderId = ?;";
+    /**
      * The database connection.
      */
     private static Connection connection;
+    
+    
+    public static ArrayList<LineItemDTO> getLineItems(int orderId)
+    {
+        ArrayList<LineItemDTO> lineItems = new ArrayList<LineItemDTO>();
+        try
+        {
+            connection = DBConnection.getConnection();
+            PreparedStatement pstm = connection.prepareStatement(GET_LINEITEMS_SQL);
+            pstm.setInt(1, orderId);
+            
+            try(ResultSet rs = pstm.executeQuery();)
+            {
+                while(rs.next())
+                {
+                    lineItems.add(MapLineItem(rs));
+                }
+            }
+                    
+        }
+        catch(Exception e)
+        {
+            System.out.println("OrderDAO.getLineItems(int): " + e.getMessage());
+        }
+        
+        return lineItems;
+    }
+    
+    /**
+     * Returns an order with the specified id.
+     * @param orderId id of order.
+     * @return OrderDTO or null.
+     */
+    public static OrderDTO getOrder(int orderId)
+    {
+        OrderDTO order = null;
+        try
+        {
+            connection = DBConnection.getConnection();
+            PreparedStatement pstm = connection.prepareStatement(GET_ORDER_SQL);
+            pstm.setInt(1, orderId);
+            
+            try(ResultSet rs = pstm.executeQuery();)
+            {
+                if(rs.next())
+                {
+                    order = MapOrder(rs);
+                }
+                else
+                    System.out.println("OrderDAO.getOrder(int) returned no orders.");
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println("OrderDAO.getOrder(int): " + e.getMessage());
+        }
+        return order;
+        
+    }
     
     /**
      * Get orders belonging to a specific user.
@@ -64,6 +135,18 @@ public class OrderDAO
             System.out.println("OrderDAO.getUserOrders(UserDTO): " + e.getMessage());
         }
         return orders;
+    }
+    
+    
+    private static LineItemDTO MapLineItem(ResultSet rs) throws Exception
+    {        
+        return new LineItemDTO(rs.getInt("orderId"), 
+                               rs.getInt("toppingId"),
+                               rs.getInt("bottomId"), 
+                               rs.getString("toppingName"),
+                               rs.getString("bottomName"),
+                               rs.getInt("qty"),
+                               rs.getFloat("price"));                
     }
     
     /**

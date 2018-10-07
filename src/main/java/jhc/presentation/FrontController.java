@@ -51,6 +51,10 @@ public class FrontController extends HttpServlet
      */
     public static final String SHOW_ORDERS = "showOrders";
     /**
+     * Display invoice for a selected order.
+     */
+    public static final String SHOW_INVOICE = "showInvoice";
+    /**
      * The user wants to proceed to checkout.
      */
     public static final String CHECKOUT = "checkout";
@@ -89,6 +93,28 @@ public class FrontController extends HttpServlet
         {
             switch (origin) 
             {
+                
+                case SHOW_INVOICE:
+                {
+                    // validate that order belongs to user.
+                    UserDTO user = (UserDTO)request.getSession().getAttribute("userDTO");
+                    OrderDTO order = OrderDAO.getOrder(Integer.parseInt(request.getParameter("orderId")));
+                    if (order.getUserId() == user.getId()) // user has the order.
+                    {                     
+                        // get lineitems of order.
+                        ArrayList<LineItemDTO> lineItems = OrderDAO.getLineItems(order.getId());
+                        // set lineitems on order.
+                        order.setLineItems(lineItems);
+                           // set order in request.
+                        request.setAttribute("orderDTO", order);
+                        request.getRequestDispatcher("customerspage/invoiceDetails.jsp").forward(request, response); 
+                    }
+                    else
+                        request.getRequestDispatcher("index.jsp").forward(request, response);
+                    
+                }
+                break;
+                
                 case SHOW_ORDERS:
                 {
                     UserDTO user = (UserDTO)request.getSession().getAttribute("userDTO");
@@ -96,8 +122,6 @@ public class FrontController extends HttpServlet
                         request.getRequestDispatcher("customerspage/orders.jsp").forward(request, response); 
                     else
                         request.getRequestDispatcher("login.jsp").forward(request, response);
-                    
-                    
                 }
                 break;
                 case CREATE_ORDER:
@@ -228,13 +252,15 @@ public class FrontController extends HttpServlet
                 }
                 break;
 
-                default: {
-                    // no forwarding, will be done when control leaves switch. 
+                default: 
+                {
+                    // origin is invalid, redirect to front page.
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
                 break;
             }
         }
-        else // If no origin, redirect to index.html
+        else // If no origin, redirect to index.jsp
             request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

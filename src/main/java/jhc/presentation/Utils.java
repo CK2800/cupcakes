@@ -17,6 +17,21 @@ import jhc.data.UserDTO;
  */
 public class Utils
 {  
+    public static String LineItemsAsTable(ArrayList<LineItemDTO> lineItems)
+    {
+        String table = "";
+        for(LineItemDTO item : lineItems)
+        {
+            table += "<tr>";
+            table += "<td>" + item.toString() + "</td>";
+            table += "<td class=\"text-center\">" + item.getPrice() + "</td>";
+            table += "<td class=\"text-center\">" + item.getQty() + "</td>";
+            table += "<td class=\"text-right\">" + item.getPrice() * item.getQty() + "</td>";
+            table += "</tr>";
+        }
+        return table;
+    }
+    
     public static String OrdersAsHtmlTable(ArrayList<OrderDTO> orders)
     {
         String table = "<table class=\"table\">" +
@@ -27,7 +42,7 @@ public class Utils
         for(OrderDTO order : orders)
         {
             table += "<tr><th scope=\"row\"></th>" +
-                     "<td>" + order.getId() + "</td>" + 
+                     "<td><a href=FrontController?origin=" + FrontController.SHOW_INVOICE + "&orderId=" + order.getId() + ">" + order.getId() + "</a></td>" + 
                      "</tr>";
         }
         table += "</tbody></table>";
