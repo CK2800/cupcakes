@@ -42,17 +42,17 @@ public class OrderDAO
     
     /**
      * Get orders belonging to a specific user.
-     * @param user UserDTO object
+     * @param userId id of logged in user.
      * @return ArrayList of OrderDTO objects. If the user has no orders, the list will be empty.
      */
-    public static ArrayList<OrderDTO> getUserOrders(UserDTO user)
+    public static ArrayList<OrderDTO> getUserOrders(int userId)
     {
         ArrayList<OrderDTO> orders = new ArrayList<OrderDTO>();
         try
         {
             connection = DBConnection.getConnection();
             PreparedStatement pstm = connection.prepareStatement(GET_USER_ORDERS_SQL);
-            pstm.setInt(1, user.getId());
+            pstm.setInt(1, userId);
             
             try(ResultSet rs = pstm.executeQuery();)
             {
