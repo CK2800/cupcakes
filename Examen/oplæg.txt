@@ -1,0 +1,10 @@
+Start med at vise sitet evt. med navigationsdiagram samtidig.
+Forklar hvorfor vi har topmenu - DRY - så vi blot kan inkludere den på relevante sider.
+Kode: tal om hvordan vi samler cupcakes i liste
+Kode: forklar CartTotals klassen og hvilke behov vi havde.
+Database: forklar v.1 og v.2 og tankerne bag:
+1. At vi ville have den skulle kunne håndtere andre varer. V1
+2. At vi ikke kunne parre top og bund. V1
+3. At vi kunne have håndteret top og bund ved at lave en kombinationstabel. Vnext
+4. At det havde krævet en bit / bool som indikerer om vareid er cupcake eller varer.
+5. Man kunne have brudt med nf1 og tilladt multiværdiattributter i lineitems for vare id'er.
