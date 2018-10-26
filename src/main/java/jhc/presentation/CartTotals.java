@@ -21,4 +21,12 @@ public class CartTotals
             this.count = count;
             this.total = total;
         }
+        
+        @Override
+        public String toString()
+        {
+            StringBuilder s = new StringBuilder();
+            s.append("Count: ").append(getCount()).append(", Total: ").append(getTotal());
+            return s.toString();
+        }
     }
